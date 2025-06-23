@@ -23,7 +23,7 @@ CREATE TABLE users(
     account_enable BOOLEAN DEFAULT TRUE,
     comments_user VARCHAR(255),
     user_rating NUMERIC(5,2),
-    avaliability VARCHAR (255) CHECK (avaliability IN ('Manhã','Tarde','Noite', 'Variada')),
+    avaliability VARCHAR (255) CHECK (avaliability IN ('Manhã','Tarde','Noite', 'Variada', null)),
     address VARCHAR (255)
 );
 

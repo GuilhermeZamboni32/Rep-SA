@@ -13,14 +13,17 @@ export const GlobalContextProvider = ({ children }) => {
     const initializeAuth = async () => {
       const storedUser = localStorage.getItem('user');
       
-      //Verificar token
+      // Verificar token
       if (storedUser) {
         try {
           const parsedUser = JSON.parse(storedUser);
-          setUser(parsedUser);
-          setIsAuthenticated(true);
-          
-          axios.defaults.headers.common['Authorization'] = `Bearer ${parsedUser.token}`;
+          if (parsedUser && parsedUser.token) {
+            setUser(parsedUser);
+            setIsAuthenticated(true);
+            axios.defaults.headers.common['Authorization'] = `Bearer ${parsedUser.token}`;
+          } else {
+            logout();
+          }
         } catch (err) {
           console.error('Failed to parse stored user', err);
           logout();
@@ -33,6 +36,7 @@ export const GlobalContextProvider = ({ children }) => {
   }, []);
 
   console.log('GlobalContext initialized with user:', user);
+
 
   // Login function
   const login = async (userData) => {

@@ -13,7 +13,7 @@ function EditPerfil() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [openModal, setOpenModal] = useState(false)
-  const {user} = useContext(GlobalContext)
+  const {user, setUser} = useContext(GlobalContext)
   const [form, setForm] = useState({        
     email_user: '', 
     username: '',
@@ -29,6 +29,11 @@ function EditPerfil() {
     id: user?.id
   });
 
+  const updateUser = (updatedData) => {
+    const newUser = { ...user, ...updatedData };
+    setUser(newUser);
+    localStorage.setItem('user', JSON.stringify(newUser));
+  };
 
   async function testing_id() {
     let id_user = user.id;
@@ -56,9 +61,9 @@ function EditPerfil() {
         }
         return;
       }
-  
       const updatedUser = await response.json();
       console.log('Profile updated successfully:', updatedUser);
+      updateUser(updatedUser);
       alert('Profile updated successfully');
     } catch (error) {
       console.error('Error:', error);
@@ -201,7 +206,7 @@ console.log(form)
             <input
                   className='texto-inp-edit'
                   type="date"
-                  value={user?.age_user ? formatDate(user?.age_user) : ''}
+                  placeholder={form?.age_user ? formatDate(form?.age_user) : ''}
                   onChange={(e) => setForm({ ...form, age_user: e.target.value })}
             />
 
