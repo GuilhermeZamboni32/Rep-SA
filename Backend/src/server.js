@@ -138,7 +138,7 @@ app.get('/users/:id_user', authenticateToken, async (req, res) => {
 });
 
 // Atualizar usuário
-app.patch('/usersEdit/id_user', authenticateToken, async (req, res) => {
+app.patch(`/usersEdit/:id_user`, authenticateToken, async (req, res) => {
   const { id_user } = req.params;
   const { username, email_user, password_user, age_user, first_name, last_name, image, gender_user, problems_user, avaliability, address } = req.body;
 

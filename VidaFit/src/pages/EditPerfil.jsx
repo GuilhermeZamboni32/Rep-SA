@@ -13,7 +13,7 @@ function EditPerfil() {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
   const [openModal, setOpenModal] = useState(false)
-  const {user, setUser} = useContext(GlobalContext)
+  const {user} = useContext(GlobalContext)
   const [form, setForm] = useState({        
     email_user: '', 
     username: '',
@@ -29,27 +29,31 @@ function EditPerfil() {
     id: user?.id
   });
 
-  console.log('user aaa======>>>>>>', user.id)
-  let new_id = user.id
-  console.log('user bbbb======>>>>>>', new_id)
 
   async function testing_id() {
-    let id_user = user.id
-    console.log('new_id new_id======>>>>>', id_user)
+    let id_user = user.id;
+    console.log('new_id new_id======>>>>>', id_user);
     try {
       const response = await fetch(`http://localhost:3000/usersEdit/${id_user}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`, 
+          Authorization: `Bearer ${user.token}`,
         },
         body: JSON.stringify(form),
       });
   
       if (!response.ok) {
-        const errorData = await response.json();
-        console.error('Error updating profile:', errorData.error);
-        alert('Failed to update profile');
+        const contentType = response.headers.get('Content-Type');
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          console.error('Error updating profile:', errorData.error);
+          alert('Failed to update profile');
+        } else {
+          const errorText = await response.text();
+          console.error('Error updating profile (non-JSON):', errorText);
+          alert('Failed to update profile: Non-JSON response received');
+        }
         return;
       }
   
