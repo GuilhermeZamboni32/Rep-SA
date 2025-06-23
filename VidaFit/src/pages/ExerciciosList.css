@@ -1,0 +1,12 @@
+
+
+.exercicios-container-2{
+    border-radius: 10px;
+    max-height: 530px;
+    width: 100%;
+    gap: 18px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    overflow-y: auto;
+}

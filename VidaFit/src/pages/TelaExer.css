@@ -35,6 +35,7 @@
     --VermelhoEE1: #811320;
     --VermelhoEE2: #4E0511;
   }
+  
 
 .container-exer{
     background: linear-gradient(135deg, var(--AzulCC1) 0%, var(--AzulE1) 100%);
@@ -110,9 +111,15 @@
 
 .div-baixo{
    
-    min-width: 100vh;
-    height: 500px;
-    border-radius: 8px;
+    border-radius: 10px;
+max-height: 530px;
+width: 100%;
+gap: 18px;
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+overflow-y: auto;
+
     
 
 }

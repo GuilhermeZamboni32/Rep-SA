@@ -1,4 +1,4 @@
-import React from 'react'
+/*import React from 'react'
 import './Ad_Exer.css'
 import { useState } from 'react'
 import Exercicio from './Exercicio'
@@ -295,11 +295,11 @@ return (
          <button onClick={CadastrarExercicio}>Cadastrar Exercicio</button>
             
     </div>
-    */}
+    *//*}
         
     
      </div>
       )
 }
 
-export default Ad_Exer
+export default Ad_Exer*/

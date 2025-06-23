@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { GlobalContext } from "../Context/GlobalContext" 
 
-
+/*
 const [form, setForm] = useState({
   professional_confirm: false,
   cref_number: '',
@@ -13,7 +13,7 @@ const [form, setForm] = useState({
 });
 const [user, setUser] = useContext(GlobalContext);
 
-
+*/
 async (form) =>  {
     try {
       const response = await axios.post(`http://localhost:3000/professional_info/${id_user}`, {
