@@ -5,13 +5,13 @@ import { useState } from 'react';
 import { GlobalContext } from "../Context/GlobalContext" 
 
 
-const [form, setForm] = useState({
-  professional_confirm: false,
-  cref_number: '',
-  validator: '',
-  professional_type: ''
-});
-const [user, setUser] = useContext(GlobalContext);
+// const [form, setForm] = useState({
+//   professional_confirm: false,
+//   cref_number: '',
+//   validator: '',
+//   professional_type: ''
+// });
+// const [user, setUser] = useContext(GlobalContext);
 
 
 async (form) =>  {
