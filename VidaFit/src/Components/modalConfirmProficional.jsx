@@ -13,7 +13,7 @@ import { GlobalContext } from "../Context/GlobalContext"
 // });
 // const [user, setUser] = useContext(GlobalContext);
 
-
+*/
 async (form) =>  {
     try {
       const response = await axios.post(`http://localhost:3000/professional_info/${id_user}`, {

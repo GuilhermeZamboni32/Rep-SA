@@ -157,7 +157,8 @@ function TelaDietaEdit() {
                                 ? <button className='button-dieta' onClick={salvarDieta}>Salvar Alterações</button>
                                 : <button className='button-dieta' onClick={cadastrarDieta}>Cadastrar Dieta</button>}
                         </div>
-                   
+
+
                 </div>
 
                 <div className='div-baixo-edit-2'>
@@ -179,6 +180,8 @@ function TelaDietaEdit() {
                             </select>
                         </div>
                     </div>
+
+                    <div className='apeneas-uma-outra-barra'></div>
 
                     <div className='div-baixo-edit-2-baixo'>
                         <section className='dietas-container-2'>

@@ -71,22 +71,27 @@
   height: 650px;
 }
 
+
 .div-baixo-edit-2-cima {
   background-color: green;
   width: 100%;
   height: 100px;
-  border-radius: 8px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
 }
 
+.apeneas-uma-outra-barra{
+  width: 100%;
+  height: 10px;
+  background-color: #222326;
+}
+
 .div-baixo-edit-2-baixo {
   background-color: rgb(128, 4, 0);
   width: 100%;
-  height: 500px;
-  border-radius: 8px;
+  height: 525px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,7 +99,7 @@
 
 .dietas-container-2 {
   border-radius: 10px;
-  max-height: 470px;
+  max-height: 530px;
   width: 100%;
   gap: 18px;
   display: flex;

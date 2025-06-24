@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+/*import React, { useState } from 'react'
 import './ExercicioEdit.css'
 
 function ExercicioEdit({img, nome, descricao, onSave, onDelete}) {
@@ -82,4 +82,4 @@ function ExercicioEdit({img, nome, descricao, onSave, onDelete}) {
     )
 }
 
-export default ExercicioEdit 
+export default ExercicioEdit */

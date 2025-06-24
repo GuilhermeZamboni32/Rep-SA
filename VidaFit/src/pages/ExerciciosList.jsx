@@ -1,7 +1,6 @@
-// Components/ListaExercicios.jsx
 import React from 'react';
 
-function ListaExercicios({ exercicios, onEditar, onDeletar }) {
+function ExerciciosList({ exercicios, buscarExercicioPorId, deletarExercicio }) {
   return (
     <section className='exercicios-container-2'>
       {exercicios.map((exercicio) => (
@@ -12,8 +11,12 @@ function ListaExercicios({ exercicios, onEditar, onDeletar }) {
           <p>ID: {exercicio.id_exer}</p>
           <p>Categoria: {exercicio.categoria_exer}</p>
           <div className='buttons-cards-exercicio'>
-            <button onClick={() => onEditar(exercicio.id_exer)}>Editar</button>
-            <button onClick={() => onDeletar(exercicio.id_exer)}>Deletar</button>
+            {buscarExercicioPorId && (
+              <button onClick={() => buscarExercicioPorId(exercicio.id_exer)}>Editar</button>
+            )}
+            {deletarExercicio && (
+              <button onClick={() => deletarExercicio(exercicio.id_exer)}>Deletar</button>
+            )}
           </div>
         </div>
       ))}
@@ -21,4 +24,4 @@ function ListaExercicios({ exercicios, onEditar, onDeletar }) {
   );
 }
 
-export default ListaExercicios;
+export default ExerciciosList;

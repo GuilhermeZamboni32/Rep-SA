@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
+import ExerciciosList from './ExerciciosList';
 import Navbar from '../Components/Navbar'
-import ExercicioEdit from './ExercicioEdit'
 import './TelaExerEdit.css'
 import axios from 'axios'
 
@@ -197,7 +197,7 @@ function TelaExerEdit() {
         </div>
 
         <div className='div-baixo-edit-2'>
-            <div className='div-baixo-edit-2-cima'>
+            <div className='div-baixo-edit-exer-2-cima'>
 
        
             
@@ -231,25 +231,27 @@ function TelaExerEdit() {
             </div>
         
             </div>
-            <div className='div-baixo-edit-2-baixo'>
+            <div className='apeneas-uma-barra'></div>
 
+           
 
+                {/*eu consigo importa apenas esta parte do codigo para outro local
+                =====================================================================*/}
             <section className='exercicios-container-2'>
-                {exerciciosFiltrados.map((exercicio) => (
-                    <div key={exercicio.id_exer} className='exercicio'>
-                        <h2>{exercicio.nome_exer}</h2>
-                        <p>Repetições: {exercicio.repeticoes_exer}</p>
-                        <p>Descrição: {exercicio.descricao_exer}</p>
-                        <p>ID: {exercicio.id_exer}</p>
-                        <p>Categoria: {exercicio.categoria_exer}</p>
-                        <div className='buttons-cards-exercicio'>
-                        <button onClick={() => buscarExercicioPorId(exercicio.id_exer)}>Editar</button>
-                        <button onClick={() => deletarExercicio(exercicio.id_exer)}>Deletar</button>
-                        </div>
-                    </div>
-                ))}
+                <div className='div-grup-exer-edit'>
+                    {/* Outros elementos... */}
+                    
+                    <ExerciciosList
+                        exercicios={exerciciosFiltrados}
+                        buscarExercicioPorId={buscarExercicioPorId}
+                        deletarExercicio={deletarExercicio}
+                    />
+                    
+      </div>
+   
             </section>
-            </div>
+            {/*=====================================================================*/}
+           
 
 
 
@@ -266,3 +268,4 @@ export default TelaExerEdit;
 {/**<button className='butoon-voltar-edit' onClick={voltar}>
               <h1 className='texto-exer-edit'>Voltar</h1>
             </button> */}
+            
