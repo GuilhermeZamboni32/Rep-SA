@@ -4,7 +4,6 @@ import './EditPerfil.css'
 import { useState, useEffect, userData, useContext} from 'react'
 import { GlobalContext } from "../Context/GlobalContext" 
 import axios from 'axios'
-import Modal from '../Components/modalConfirmProficional'
 
 
 
@@ -12,8 +11,8 @@ function EditPerfil() {
 
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
-  const [openModal, setOpenModal] = useState(false)
   const {user, setUser} = useContext(GlobalContext)
+  const [isPopupVisible, setPopupVisible] = useState(false);
   const [form, setForm] = useState({        
     email_user: '', 
     username: '',
@@ -28,6 +27,13 @@ function EditPerfil() {
     address: '',
     id: user?.id
   });
+  const [professionalForm,  setProfessionalForm] = useState({
+    professional_confirm: '',
+    crefNumber: '',
+    professionalType: '',
+    validator: '',
+  });
+
 
   const updateUser = (updatedData) => {
     const newUser = { ...user, ...updatedData };
@@ -35,9 +41,8 @@ function EditPerfil() {
     localStorage.setItem('user', JSON.stringify(newUser));
   };
 
-  async function testing_id() {
+  async function submitProfile() {
     let id_user = user.id;
-    console.log('new_id new_id======>>>>>', id_user);
     try {
       const response = await fetch(`http://localhost:3000/usersEdit/${id_user}`, {
         method: 'PATCH',
@@ -80,34 +85,45 @@ function EditPerfil() {
     return `${year}-${month}-${day}`;
 };
 
-const submitEditProfile = async (id, form) => {
-  console.dir("id no front======>>>> ", new_id)
-  testing_id()
-  try {
-    const response = await fetch(`http://localhost:3000/usersEdit/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.getItem('token')}`, 
-      },
-      body: JSON.stringify(form),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Error updating profile:', errorData.error);
-      alert('Failed to update profile');
-      return;
+  //---------------------------------------------------------------------------
+  async function submitProfessionalRequest() {
+    const id_user = user.id;
+  
+    try {
+      const response = await fetch(`http://localhost:3000/professional_info/${id_user}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.token}`,
+        },
+        body: JSON.stringify(
+          professionalForm
+        ),
+      });
+  
+      if (!response.ok) {
+        const contentType = response.headers.get('Content-Type');
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          console.error('Erro ao registrar profissional:', errorData.error);
+          alert('Erro ao registrar profissional');
+        } else {
+          const errorText = await response.text();
+          console.error('Erro ao registrar profissional (non-JSON):', errorText);
+          alert('Erro ao registrar profissional: resposta não JSON');
+        }
+        return;
+      }
+  
+      const result = await response.json();
+      console.log("Profissional registrado com sucesso:", result);
+      alert('Dados de profissional enviados com sucesso!');
+      setPopupVisible(false);
+    } catch (error) {
+      console.error('Erro:', error);
+      alert('Ocorreu um erro ao enviar os dados profissionais');
     }
-
-    const updatedUser = await response.json();
-    console.log('Profile updated successfully:', updatedUser);
-    alert('Profile updated successfully');
-  } catch (error) {
-    console.error('Error:', error);
-    alert('An error occurred while updating the profile');
   }
-};
 
   //---------------------------------------------------------------------------
 
@@ -115,48 +131,89 @@ const submitEditProfile = async (id, form) => {
     try {
       const formData = new FormData();
       formData.append('profile_image', form.profile_image);
-      const response = await axios.post('http://localhost:3000/upload', {
-        image: form.profile_image,
-      },
-      {
+  
+      const response = await fetch(`http://localhost:3000/upload/${id_user}`, {
+        method: 'POST',
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
+        body: formData,
+      });
+  
+      if (!response.ok) {
+        const contentType = response.headers.get('Content-Type');
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          console.error('Error uploading image:', errorData.error || errorData.message);
+          alert('Failed to upload profile image');
+        } else {
+          const errorText = await response.text();
+          console.error('Error uploading image (non-JSON):', errorText);
+          alert('Failed to upload profile image: Non-JSON response received');
+        }
+        return;
       }
-    );
-      console.log(response.data);
-      console.log('Profile ima?,ge updated successfully:', response.data);
-    }catch (error) {
-      console.error('Error updating profile image:', error);
+  
+      const result = await response.json();
+      console.log('Profile image updated successfully:', result);
+      alert('Profile image updated successfully');
+    } catch (error) {
+      console.error('Error uploading profile image:', error);
+      alert('An error occurred while uploading the image');
     }
   }
-
-  //--------------------------------------------------------------------------
+  
+  //---------------------------------------------------------------------------
 
   async function profileImage() {
     try {
-      const response = await axios.get('http://localhost:3000/profile_image');
-      console.log('Profile image fetched successfully:', response.data);
-    }catch (error) {
-      console.error('Error fetching profile image:', error);
-    }
-  }
-
-  //---------------------------------------------------------------------------
-
-  async function deleteAccount(deleteAccount) {
-    try {
-      const response = await axios.post(`http://localhost:3000/disable`, {},
-      {
-        headers: { 
+      const response = await fetch(`http://localhost:3000/profile_image/${id_user}`, {
+        headers: {
           Authorization: `Bearer ${user?.token}`,
         },
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Error fetching profile image:', errorText);
+        alert('Failed to fetch profile image');
+        return;
       }
-      );
-      console.log('Account deleted successfully:', response.data);
+  
+      const imageData = await response.json();
+      console.log('Profile image fetched successfully:', imageData);
+      // You can optionally return or update state with imageData here
+    } catch (error) {
+      console.error('Error fetching profile image:', error);
+      alert('An error occurred while fetching the profile image');
+    }
+  }
+  
+  //---------------------------------------------------------------------------
+  
+  async function deleteAccount() {
+    try {
+      const response = await fetch(`http://localhost:3000/disable/${id_user}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Error deleting account:', errorText);
+        alert('Failed to delete account');
+        return;
+      }
+  
+      const result = await response.json();
+      console.log('Account deleted successfully:', result);
+      alert('Account deleted successfully');
       navigate('/');
-  }catch (error) {
+    } catch (error) {
       console.error('Error deleting account:', error);
+      alert('An error occurred while deleting the account');
     }
   }
 
@@ -165,6 +222,8 @@ const submitEditProfile = async (id, form) => {
   }
   
 console.log(form)
+
+
   return (
    <div className='container-editperfil'>
             <Navbar />
@@ -226,7 +285,7 @@ console.log(form)
           
               <div className='botoes-edit'>
 
-              <button className="Salvar" onClick={() =>testing_id() }>
+              <button className="Salvar" onClick={() =>submitProfile() }>
                 Salvar
               </button>
 
@@ -287,15 +346,40 @@ console.log(form)
                     <input className='texto-inp-inf' type="text" placeholder="Endereço:" onChange={(e) => setForm({ ...form,  address: e.target.value })}/>
               </div>
         </div>
-                    <div className='container-buttom'>
-                    <h2>deseja ser um profisional ?</h2>
-                    
-                    <button className="butoon-click-1" onClick={() => setOpenModal(true)}>clique aqui</button>
-                    </div>
-                    <Modal isOpen={openModal} setModalOpen={() => setOpenModal(!openModal)}></Modal>
-  
+        <div className='container-buttom'>
+          <h2>Deseja ser um profissional?</h2>
+          <button className="butoon-click-1" onClick={() => setPopupVisible(true)}>Open Popup</button>
+          {isPopupVisible && (
+            <div className="popup" onClick={() => setPopupVisible(false)}>
+              <div className="popup-content" onClick={(e) => e.stopPropagation()}>
+                <h2>Formulário para se tornar profissional</h2>
 
+                <input
+                  type="text"
+                  placeholder="Número do CREF (ex: 12345-G/SP)"
+                  value={professionalForm.crefNumber}
+                  onChange={(e) => setProfessionalForm({ ...professionalForm, crefNumber: e.target.value })}
+                />
+                <select className='selectEditPerfil'onChange={(e) => setForm({ ...professionalForm, professional_type: e.target.value })}>
+                      <option value="">Tipo de profissional</option>
+                      <option value="personal trainer">Personal trainer</option>
+                      <option value="nutricionista">Nutricionista</option>     
+                      <option value="ambos">Ambos</option>      
+                </select>
 
+                <input
+                  type="text"
+                  placeholder="Validador"
+                  value={professionalForm.validator}
+                  onChange={(e) => setProfessionalForm({ ...professionalForm, validator: e.target.value })}
+                />
+
+                <button onClick={submitProfessionalRequest}>Confirmar</button>
+                <button onClick={() => setPopupVisible(false)}>Fechar</button>
+              </div>
+            </div>
+          )}
+        </div>
         </div>
 
       </div>

@@ -83,7 +83,7 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + '-' + uniqueSuffix + '-' + file.originalname);
   }
 });
-const uploadImage = multer({ storage: storage });
+const uploadImage = multer({ dest: './public', storage: storage });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                  ROTAS DE USUÁRIOS                                              //
@@ -162,7 +162,7 @@ app.patch(`/usersEdit/:id_user`, async (req, res) => {
 });
 
 // Desativar usuário
-app.patch('/disable', authenticateToken, async (req, res) => {
+app.patch('/disable/:id_user', authenticateToken, async (req, res) => {
   const { id_user } = req.params;
   try {
     const result = await pool.query('UPDATE users SET account_enable = FALSE WHERE id_user = $1 RETURNING *', [id_user]);
@@ -240,8 +240,18 @@ app.post('/login', async (req, res) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Validação de profissional
-app.post('/professional_info', authenticateToken, async (req, res) => {
-  const { id_user, professional_confirm, cref_number, cref_card_photo, validator, professional_type } = req.body;
+app.patch('/professional_info/:id_user', async (req, res) => {
+  const { id_user, professional_confirm, cref_number, validator, professional_type } = req.body;
+
+    // === CREF Validation ===
+    function isValidCREF(cref) {
+      const crefRegex = /^\d{4,6}-[A-Z]{1,2}\/?[A-Z]{0,2}$/;
+      return crefRegex.test(cref);
+    }
+  
+    if (!isValidCREF(cref_number)) {
+      return res.status(400).json({ error: 'Invalid CREF number format' });
+    }
 
   try {
     const userResult = await pool.query(
@@ -252,8 +262,8 @@ app.post('/professional_info', authenticateToken, async (req, res) => {
     if (userResult.rows.length === 0) return res.status(404).json({ error: 'User not found' });
 
     const professionalResult = await pool.query(
-      'INSERT INTO professional_info (id_user, cref_number, cref_card_photo, validator) VALUES ($1, $2, $3, $4) RETURNING *',
-      [id_user, cref_number, cref_card_photo, validator]
+      'INSERT INTO professional_info (id_user, cref_number, validator) VALUES ($1, $2, $3) RETURNING *',
+      [id_user, cref_number, validator]
     );
 
     await pool.query(
@@ -394,7 +404,7 @@ app.delete('/dietas/:id', async (req, res) => {
 //                                     UPLOAD DE IMAGENS                                          //
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
-app.post('/upload', authenticateToken, uploadImage.single('image'), (req, res) => {
+app.post('/upload/:id_user', authenticateToken, uploadImage.single('image'), (req, res) => {
   try {
     if (!req.file || !req.file.filename) {
       return res.status(400).json({ error: 'No file uploaded or invalid file data' });
