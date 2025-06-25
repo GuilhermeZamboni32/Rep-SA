@@ -26,6 +26,7 @@ function TelaExer() {
     navigate('/perfil');
   }
 
+  
   return (
     <div className='container-exer'>
       <Navbar />

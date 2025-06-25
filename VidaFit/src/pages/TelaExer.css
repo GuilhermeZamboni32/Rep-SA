@@ -110,7 +110,7 @@
 
 
 .div-baixo{
-   
+   background-color: yellow;
     border-radius: 10px;
 max-height: 530px;
 width: 100%;
@@ -123,4 +123,5 @@ overflow-y: auto;
     
 
 }
+
 

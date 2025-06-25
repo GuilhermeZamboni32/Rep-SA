@@ -48,3 +48,23 @@ CREATE TABLE exercicios (
         categoria_exer IN ('peito', 'ombro', 'braco', 'costas', 'abdomen', 'perna')
     )
 );
+
+CREATE TABLE dietas (
+    id_dieta SERIAL PRIMARY KEY,
+    nome_dieta VARCHAR(100) NOT NULL,
+    calorias_dieta INTEGER NOT NULL,
+    descricao_dieta TEXT,
+    categoria_dieta VARCHAR(30) NOT NULL CHECK (
+        categoria_dieta IN ('Emagrecimento','Ganho de massa','Manutenção',
+            'Vegetariana','Vegana','Low Carb')
+    )
+);
+
+
+CREATE TABLE avaliacoes (
+  id_avaliacao SERIAL PRIMARY KEY,
+  id_user UUID NOT NULL,
+  nota NUMERIC(2,1) CHECK (nota >= 1 AND nota <= 5),
+  comentario TEXT NOT NULL,
+  FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE
+);

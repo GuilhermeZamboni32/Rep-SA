@@ -233,24 +233,22 @@ function TelaExerEdit() {
             </div>
             <div className='apeneas-uma-barra'></div>
 
-           
-
-                {/*eu consigo importa apenas esta parte do codigo para outro local
-                =====================================================================*/}
+            <div className='div-baixo-edit-exer-2-baixo'>
             <section className='exercicios-container-2'>
                 <div className='div-grup-exer-edit'>
-                    {/* Outros elementos... */}
-                    
                     <ExerciciosList
                         exercicios={exerciciosFiltrados}
                         buscarExercicioPorId={buscarExercicioPorId}
                         deletarExercicio={deletarExercicio}
-                    />
-                    
-      </div>
-   
+                    />   
+                </div>
             </section>
-            {/*=====================================================================*/}
+            </div>
+
+           
+
+               
+           
            
 
 
