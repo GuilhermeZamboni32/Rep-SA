@@ -241,17 +241,18 @@ app.post('/login', async (req, res) => {
 
 // Validação de profissional
 app.patch('/professional_info/:id_user', async (req, res) => {
-  const { id_user, professional_confirm, cref_number, validator, professional_type } = req.body;
+  const { professional_confirm, cref_number, validator, professional_type } = req.body;
+  const { id_user } = req.params;
 
-    // === CREF Validation ===
-    function isValidCREF(cref) {
-      const crefRegex = /^\d{4,6}-[A-Z]{1,2}\/?[A-Z]{0,2}$/;
-      return crefRegex.test(cref);
-    }
+    // // === CREF Validation ===
+    // function isValidCREF(cref) {
+    //   const crefRegex = /^\d{4,6}-[A-Z]{1,2}\/?[A-Z]{0,2}$/;
+    //   return crefRegex.test(cref);
+    // }
   
-    if (!isValidCREF(cref_number)) {
-      return res.status(400).json({ error: 'Invalid CREF number format' });
-    }
+    // if (!isValidCREF(cref_number)) {
+    //   return res.status(400).json({ error: 'Invalid CREF number format' });
+    // }
 
   try {
     const userResult = await pool.query(
@@ -399,6 +400,28 @@ app.delete('/dietas/:id', async (req, res) => {
   }
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+// ROTAS DE comentarios //
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Rota para adicionar uma avaliação
+app.post(`/avaliacoes/:id_user`, async (req, res) => {
+  const { nota, comentario, id_user } = req.body;
+  
+  if (!comentario) {
+  return res.status(400).json({ error: 'Comentário é obrigatório.' });
+  }
+  try {
+  const result = await pool.query(
+  'INSERT INTO avaliacoes (id_user, nota, comentario) VALUES ($1, $2, $3) RETURNING *',
+  
+  );
+  res.status(201).json({ message: 'Avaliação registrada com sucesso!', avaliacao: result.rows });
+  } catch (err) {
+  console.error('Erro ao registrar avaliação:', err.message);
+  res.status(500).json({ error: 'Erro ao registrar avaliação.' });
+  }
+  });
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     UPLOAD DE IMAGENS                                          //

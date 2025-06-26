@@ -234,7 +234,7 @@ function TelaExerEdit() {
             <div className='apeneas-uma-barra'></div>
 
             <div className='div-baixo-edit-exer-2-baixo'>
-            <section className='exercicios-container-2'>
+            <section className='exercicios-container-23'>
                <ExerciciosList
                     exercicios={exerciciosFiltrados}
                     buscarExercicioPorId={buscarExercicioPorId}
