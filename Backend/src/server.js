@@ -399,6 +399,28 @@ app.delete('/dietas/:id', async (req, res) => {
   }
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                      ROTAS DE comentarios                                         //
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Rota para adicionar uma avaliação
+app.post(`/avaliacoes/:id_user`, async (req, res) => {
+  const { nota, comentario, id_user } = req.body;
+
+  if (!comentario) {
+    return res.status(400).json({ error: 'Comentário é obrigatório.' });
+  }
+  try {
+    const result = await pool.query(
+      'INSERT INTO avaliacoes (id_user, nota, comentario) VALUES ($1, $2, $3) RETURNING *',
+      [id_user, nota || null, comentario]
+    );
+    res.status(201).json({ message: 'Avaliação registrada com sucesso!', avaliacao: result.rows[0] });
+  } catch (err) {
+    console.error('Erro ao registrar avaliação:', err.message);
+    res.status(500).json({ error: 'Erro ao registrar avaliação.' });
+  }
+});
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     UPLOAD DE IMAGENS                                          //
