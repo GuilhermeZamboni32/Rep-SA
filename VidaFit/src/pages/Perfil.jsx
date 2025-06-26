@@ -156,13 +156,13 @@ const formatDate = (date) => {
               Grupo de Dietas
               </h1>
             </div>
-            <div className="dieta">
+            <div className="dieta1">
               <button className='button-dieta-perfil-1' onClick={dieta}>Dieta A</button>
               {/*<button onClick={dieta}>Dieta B</button>
               <button onClick={dieta}>Dieta C</button>*/}
             </div>
           </div>
-
+ 
         </div>
       </div>
 

@@ -154,6 +154,7 @@ cursor: pointer;
   height: 500px;
   background-color: var(--BrancoC2);
 }
+
 .div-inputs2 input {
   color: var(--BrancoC2);
   background-color: var(--AzulP2);

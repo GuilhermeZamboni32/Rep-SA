@@ -46,14 +46,23 @@
     color: var(--AzulEE1);
   }
   
+.logotipo{
+    width: 120px;
+    height: 50px;
+    background-size: cover;
+}
+
   .header {
     background: var(--VermelhoC1);
     color: var(--BrancoCC2);
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .espacomaneiro{
+    width: 80%;
   }
   
   .logo {
@@ -83,6 +92,22 @@
   }
   
   .btn-header:hover {
+    background: var(--VermelhoC2);
+    transform: translateY(-2px);
+  }
+
+   .btn-header-2 {
+    background: var(--VermelhoC1);
+    color: var(--BrancoCC2);
+    margin-left: 3%;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .btn-header-2:hover {
     background: var(--VermelhoC2);
     transform: translateY(-2px);
   }

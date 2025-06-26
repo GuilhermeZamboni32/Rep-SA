@@ -1,12 +1,15 @@
 
 
-.exercicios-container-2{
-    border-radius: 10px;
-    max-height: 530px;
-    width: 100%;
-    gap: 18px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    overflow-y: auto;
+.exercicios-container-2 {
+  display: flex;
+  flex-wrap: wrap;          /* Quebra para a linha de baixo */
+  flex-direction: row;      /* Os cards vão da esquerda para a direita */
+  gap: 18px;                /* Espaçamento entre os cards */
+  width: 100%;              /* Ocupa toda a largura disponível */
+  max-height: 530px;
+  overflow-y: auto;         /* Scroll vertical se ultrapassar altura */
+  padding: 10px;
+  box-sizing: border-box;   /* Inclui padding e borda no tamanho total */
+  background-color: aquamarine;
+  border-radius: 10px;
 }

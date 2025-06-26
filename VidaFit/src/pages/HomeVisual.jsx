@@ -2,6 +2,7 @@ import React from 'react';
 import './HomeVisual.css';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Components/Navbar';
+import { Link } from "react-router-dom";
 
 function HomeVisual() {
     const navigate = useNavigate()
@@ -11,14 +12,19 @@ function HomeVisual() {
     function cadastro(){
         navigate('/Cadastro');
       }
+    function login(){
+        navigate('/login');
+      }
 
 
   return (
     <div>
        {/** <Navbar />*/} 
       <header className="header">
-        <div className="logo">Vida+Fit</div>
+         <img className='logotipo' src="logotipo_VF_2.png" alt="" />
+        <div className='espacomaneiro'></div>
         <a href="#cadastro" className="btn-header" onClick={cadastro}>Cadastre-se</a>
+         <a href="#cadastro" className="btn-header-2" onClick={login}>Logar</a>
       </header>
 
       <div className="hero">

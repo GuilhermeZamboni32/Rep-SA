@@ -235,13 +235,11 @@ function TelaExerEdit() {
 
             <div className='div-baixo-edit-exer-2-baixo'>
             <section className='exercicios-container-2'>
-                <div className='div-grup-exer-edit'>
-                    <ExerciciosList
-                        exercicios={exerciciosFiltrados}
-                        buscarExercicioPorId={buscarExercicioPorId}
-                        deletarExercicio={deletarExercicio}
-                    />   
-                </div>
+               <ExerciciosList
+                    exercicios={exerciciosFiltrados}
+                    buscarExercicioPorId={buscarExercicioPorId}
+                    deletarExercicio={deletarExercicio}
+                />
             </section>
             </div>
 

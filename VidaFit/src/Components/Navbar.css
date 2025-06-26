@@ -1,23 +1,92 @@
-.container-navbar{
-    background-color: var(--VermelhoP2);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+:root {
+    --AzulCC1: #1A2D87;
+    --AzulCC2: #5E628D;
+    --BrancoCC1: #B9BEC8;
+    --BrancoCC2: #FFFFFF;
+    --VermelhoCC1: #DB808A;
+    --VermelhoCC2: #C8586B;
+    --AzulC1: #0E1848;
+    --AzulC2: #404363;
+    --BrancoC1: #8D99AE;
+    --BrancoC2: #D8F1FD;
+    --VermelhoC1: #EF233B;
+    --VermelhoC2: #B30522;
+    --AzulP1: #091136;
+    --AzulP2: #2B2D42;
+    --BrancoP1: #8D99AE;
+    --BrancoP2: #D8F1FD;
+    --VermelhoP1: #EF233B;
+    --VermelhoP2: #B30522;
+    --AzulE1: #050A1F;
+    --AzulE2: #272836;
+    --BrancoE1: #787F8A;
+    --BrancoE2: #93ACB8;
+    --VermelhoE1: #BE1D30;
+    --VermelhoE2: #88061B;
+    --AzulEE1: #030611;
+    --AzulEE2: #1F202C;
+    --BrancoEE1: #6B6F75;
+    --BrancoEE2: #687982;
+    --VermelhoEE1: #811320;
+    --VermelhoEE2: #4E0511;
+  }
+
+.container-navbar {
+  background: var(--VermelhoC1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 50px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 200px;
+  gap: 10px;
+}
+
+.espaco-logo{
+    width: 60px;
     height: 60px;
-    transition: background-color 0.3s ease;
+    background-size: cover;
+    border-radius: 50%;
 }
 
-
-
-.texto{
-    color: var(--BrancoCC1);
-    transition: color 0.1s ease; 
-    transition: all 0.3s ease;
+.logovf{
+    width: 70px;
+    height: 60px;
+    background-size: cover;
+    border-radius: 50%;
 }
 
-.texto:hover{
-    color: var(--BrancoCC2);
-    border-radius: 8px;
-    box-shadow: 8px 8px 15px var(--VermelhoE2);
+.logo-texto {
+  color: var(--BrancoCC2);
+  font-weight: bold;
+  font-size: 30px;
 }
 
+.nav-links {
+  display: flex;
+  gap: 30px;
+}
+
+.texto {
+  color: var(--BrancoC2);
+  font-weight: bold;
+  position: relative;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
+  text-decoration: none;
+}
+
+.texto:hover {
+  background-color: var(--VermelhoC2);
+  color: var(--BrancoCC2);
+  box-shadow: 4px 4px 10px var(--AzulC1);
+  border-radius: 8px;
+}

@@ -36,6 +36,7 @@
   --VermelhoEE2: #4E0511;
 }
 
+
 .container-perfil {
   background: linear-gradient(135deg, var(--AzulCC1) 0%, var(--AzulE1) 100%);
   min-height: 100vh;
@@ -93,16 +94,11 @@
 
   .perfil-input{
     gap: 200px;
-    
-    
-    
-    
   }
   
   .texto-inp{
     width: 100%;
     margin: 5px 0;
-    
     color: var(--BrancoC2);
     border: none;
     padding: 10px;
@@ -115,6 +111,16 @@
     
 }
 
+.texto-perfil{
+  width: 100%;
+  margin: 5px 0;
+  background-color: var(--BrancoCC1);
+  color: var(--AzulCC1);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .botoes-perfil{
   margin-top: 50px;
   display: flex;
@@ -158,7 +164,7 @@
     border-radius: 8px;
   }
   
-  .exercicios button, .dieta button {
+  .exercicios button, .dieta1 button {
     display: block;
     width: 100%;
     margin: 20px 0;
@@ -179,16 +185,6 @@
 
 
 
-  .texto-perfil{
-    width: 100%;
-    margin: 5px 0;
-    background-color: var(--AzulCC2);
-    color: var(--BrancoC2);
-    border: none;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
 
 
   input::placeholder {
