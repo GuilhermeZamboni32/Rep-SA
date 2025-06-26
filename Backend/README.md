@@ -59,12 +59,10 @@ CREATE TABLE dietas (
             'Vegetariana','Vegana','Low Carb')
     )
 );
-
-
 CREATE TABLE avaliacoes (
   id_avaliacao SERIAL PRIMARY KEY,
   id_user UUID NOT NULL,
-  nota NUMERIC(2,1) CHECK (nota >= 1 AND nota <= 5),
+  nota NUMERIC(2, 1) CHECK (nota >= 0 AND nota <= 5), 
   comentario TEXT NOT NULL,
   FOREIGN KEY (id_user) REFERENCES users (id_user) ON DELETE CASCADE
 );
