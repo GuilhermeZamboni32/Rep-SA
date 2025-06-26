@@ -241,43 +241,34 @@ app.post('/login', async (req, res) => {
 
 // Validação de profissional
 app.patch('/professional_info/:id_user', async (req, res) => {
-  const { id_user, professional_confirm, cref_number, validator, professional_type } = req.body;
+  const { professional_confirm, cref_number, validator, professional_type } = req.body;
+  const { id_user } = req.params;
 
-    // === CREF Validation ===
-    function isValidCREF(cref) {
-      const crefRegex = /^\d{4,6}-[A-Z]{1,2}\/?[A-Z]{0,2}$/;
-      return crefRegex.test(cref);
-    }
-  
-    if (!isValidCREF(cref_number)) {
-      return res.status(400).json({ error: 'Invalid CREF number format' });
-    }
+  console.log('Dados recebidos no body:', req.body);
 
   try {
     const userResult = await pool.query(
-      'UPDATE users SET professional_confirm = 1 WHERE id_user = $1 RETURNING *',
-      [id_user]
+      'UPDATE users SET professional_confirm = $1, professional_type = $2 WHERE id_user = $3 RETURNING *',
+      [professional_confirm, professional_type, id_user]
     );
 
     if (userResult.rows.length === 0) return res.status(404).json({ error: 'User not found' });
-
     const professionalResult = await pool.query(
-      'INSERT INTO professional_info (id_user, cref_number, validator) VALUES ($1, $2, $3) RETURNING *',
+      `
+        INSERT INTO professional_info (id_user, cref_number, validator)
+        VALUES ($1, $2, $3)
+        ON CONFLICT (id_user)
+        DO UPDATE SET cref_number = $2, validator = $3
+        RETURNING *
+      `,
       [id_user, cref_number, validator]
     );
-
-    await pool.query(
-      'UPDATE users SET professional_type = $1 WHERE id_user = $2',
-      [professional_type, id_user]
-    );
-
     res.json({ user: userResult.rows[0], professionalInfo: professionalResult.rows[0] });
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: 'Failed to update user or insert professional info' });
   }
 });
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                      ROTAS DE EXERCÍCIOS                                        //
