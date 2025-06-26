@@ -87,10 +87,21 @@ function HomeVisual() {
       <div id="equipe" className="section">
         <h2>Nossa Equipe</h2>
         <ul className="team">
-          <li>Guilherme Zamboni Menegacio - Treinos e Dietas</li>
-          <li >Vitor Danielli de Oliveira - Cadastro</li>
-          <li>Jonathan Stulp Zoz - Contatos</li>
-          <li>Thiago Quadra Arnold - Avaliações</li>
+          <li onClick={() => window.location.href = "https://github.com/GuilhermeZamboni32"} style={{ cursor: "pointer" }}>
+            Guilherme Zamboni Menegacio - Treinos e Dietas
+          </li>
+
+          <li onClick={() => window.location.href = "https://github.com/CafeinaC4"} style={{ cursor: "pointer" }}>
+            Vitor Danielli de Oliveira - Cadastro
+          </li>
+
+          <li onClick={() => window.location.href = "https://github.com/Jow-Sky"} style={{ cursor: "pointer" }}>
+            Jonathan Stulp Zoz - Contatos
+          </li>
+
+          <li onClick={() => window.location.href = "https://github.com/thpixel-dev"} style={{ cursor: "pointer" }}>
+            Thiago Quadra Arnold - Avaliações
+          </li>
         </ul>
       </div>
 
