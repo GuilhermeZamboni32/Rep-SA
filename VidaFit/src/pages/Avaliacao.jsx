@@ -7,8 +7,11 @@ import { GlobalContext } from "../Context/GlobalContext"
 import {useState} from 'react'
 
 function Avaliacao() {
-const [avaliacao, setAvaliacao] = useState(0);
-const [rating, setRating] = useState(0);
+const [comentario, setComentario] = useState('')
+const [nota, setNota] = useState(0);
+const { user, setUser} = useContext(GlobalContext)
+const { updateUser } = useContext(GlobalContext)
+const { logout } = useContext(GlobalContext)
 
   const navigate = useNavigate()
 
@@ -20,11 +23,8 @@ const [rating, setRating] = useState(0);
     navigate('/Av_notas')
   }
 
-  
-  const { user, setUser} = useContext(GlobalContext)
-  const { updateUser } = useContext(GlobalContext)
-  const { logout } = useContext(GlobalContext)
 
+  console.log('User no contexto global:', user);
 
   const formatDate = (date) => {
     if (!date) return '';
@@ -34,54 +34,57 @@ const [rating, setRating] = useState(0);
     const year = parsedDate.getFullYear(); 
     return `${day}/${month}/${year}`; 
 }
-
-  // Função para enviar a avaliação ao backend
   const enviarAvaliacao = async () => {
+    if (!comentario.trim()) {
+      alert('Por favor, escreva um comentário antes de enviar.');
+      return;
+    }
     const dados = {
-      nota: avaliacao, // Nota da avaliação
-      comentario, // Comentário do usuário
+      nota: nota || null, 
+      comentario, 
+      id_user: user?.id,
     };
+    if (!dados.id_user) {
+      alert('ID do usuário não encontrado. Certifique-se de que está autenticado.');
+      return;
+    }
+
+    //console.log('Dados enviados:', dados);
 
     try {
-      const response = await fetch('http://localhost:5000/avaliacoes', {
+      const response = await fetch(`http://localhost:3000/avaliacoes/${dados.id_user}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Token JWT do usuário
         },
         body: JSON.stringify(dados),
       });
 
       if (response.ok) {
-        alert('Avaliação enviada com sucesso!');
+        alert('Avaliação enviada com sucesso!')
       } else {
-        const errorData = await response.json();
-        alert(`Erro: ${errorData.error}`);
+        const errorData = await response.json()
+        alert(`Erro: ${errorData.error}`)
       }
     } catch (error) {
-      console.error('Erro ao enviar avaliação:', error);
-      alert('Erro ao conectar com o servidor.');
+      console.error('Erro ao enviar avaliação:', error)
+      alert('Erro ao conectar com o servidor.')
     }
   };
 
-  
-  const Starclick = (index) => {
-    setAvaliacao(index); // Atualiza a nota com base no clique
+  const handleStarClick = (index, esquerda) => {
+    const novaNota = esquerda ? parseFloat((index + 0.5).toFixed(2)) : index + 1
+    if (index === 0 && novaNota === nota) {
+      setNota(0)
+    } else {
+      setNota(novaNota)
+    }
   };
 
-const handleStarClick = (index, isLeft) => {
-  const newRating = isLeft ? index + 0.5 : index + 1;
-  if (index === 0 && newRating === rating) {
-    setRating(0);
-  } else {
-    setRating(newRating);
-  }
-};
-
-const getStarImage = (index) => {
-  if (rating >= index + 1) return '/star-cheia.png';
-  if (rating >= index + 0.5) return '/star-meia.png';
-  return '/star-vazia.png';
+const obterImagemEstrela = (index) => {
+  if (nota >= index + 1) return '/star-cheia.png'
+  if (nota >= parseFloat((index + 0.5).toFixed(2))) return '/star-meia.png' 
+  return '/star-vazia.png'
 };
 
   return (
@@ -150,15 +153,15 @@ const getStarImage = (index) => {
             {[0, 1, 2, 3, 4].map((index) => (
               <button key={index} className="star-button">
                 <span
-                  className="star-half left"
-                  onClick={() => handleStarClick(index, true)} // Clique na metade esquerda (meia estrela)
+                  className="estrela-metade esquerda"
+                  onClick={() => handleStarClick(index, true)} 
                 />
                 <span
-                  className="star-half right"
-                  onClick={() => handleStarClick(index, false)} // Clique na metade direita (estrela inteira)
+                  className="estrela-metade direita"
+                  onClick={() => handleStarClick(index, false)} 
                 />
                 <img
-                  src={getStarImage(index)} // Obtém a imagem da estrela com base na nota
+                  src={obterImagemEstrela(index)} 
                   alt="star"
                   className="star-img"
                 />
@@ -174,18 +177,15 @@ const getStarImage = (index) => {
             </h2>
             </div>
             <textarea className='comentario' 
-            placeholder='escreva de comentario aqui'
+            placeholder='escreva seu comentario aqui'
+            value={comentario}
             cols="100" 
             rows="100" 
+            onChange={(e) => setComentario(e.target.value)}
             ></textarea>
           </div>
          <button className='btn-av' onClick={enviarAvaliacao}>enviar</button>
         </div>
-
-       
-
-       
-
       </div>
     </div>
   )
