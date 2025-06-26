@@ -89,6 +89,9 @@ function EditPerfil() {
   async function submitProfessionalRequest() {
     const id_user = user.id;
   
+    console.log('Submitting professional request for user:', id_user);
+    console.log('Payload:', professionalForm);
+  
     try {
       const response = await fetch(`http://localhost:3000/professional_info/${id_user}`, {
         method: 'PATCH',
@@ -96,10 +99,16 @@ function EditPerfil() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${user.token}`,
         },
-        body: JSON.stringify(
-          professionalForm
-        ),
+        body: JSON.stringify({
+          cref_number: professionalForm.crefNumber,
+          validator: professionalForm.validator,
+          professional_type: professionalForm.professionalType,
+          professional_confirm: true
+        })
       });
+  
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
   
       if (!response.ok) {
         const contentType = response.headers.get('Content-Type');
@@ -115,13 +124,12 @@ function EditPerfil() {
         return;
       }
   
-      const result = await response.json();
-      console.log("Profissional registrado com sucesso:", result);
-      alert('Dados de profissional enviados com sucesso!');
-      setPopupVisible(false);
+      const responseData = await response.json();
+      console.log('Request successful!', responseData);
+      alert('Profissional registrado com sucesso!');
     } catch (error) {
-      console.error('Erro:', error);
-      alert('Ocorreu um erro ao enviar os dados profissionais');
+      console.error('Erro ao enviar requisição:', error);
+      alert('Erro ao enviar requisição');
     }
   }
 
@@ -234,11 +242,11 @@ console.log(form)
           <div className="div-grupo-usuario-1">
 
             <div className='div-img'>
-              <form>
-                 <input type="file" name="file" /*value={form.image}*/
+              {/* <form>
+                 <input type="file" name="file" /*value={form.image}
                 onChange={(e) => setForm({ ... form, image: e.target.value })}/>
                 <button onClick={updateProfileImage}>Upload</button>
-              </form>
+              </form> */}
 
             <img 
               className='img' 

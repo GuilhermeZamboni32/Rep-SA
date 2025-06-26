@@ -18,7 +18,7 @@ CREATE TABLE users(
     gender_user VARCHAR(255),
     problems_user VARCHAR(255),
     professional_confirm BOOLEAN,
-    professional_type VARCHAR (555) CHECK (professional_type IN('personal trainer', 'nutricionista', 'ambos')),
+    professional_type VARCHAR (555) CHECK (professional_type IN('personal_trainer', 'nutricionista', 'ambos')),
     id_user UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
     account_enable BOOLEAN DEFAULT TRUE,
     comments_user VARCHAR(255),
@@ -28,15 +28,15 @@ CREATE TABLE users(
 );
 
 -- Tabela de profissionais
-CREATE TABLE professional_info(
-    cref_number VARCHAR(255),
-    cref_card_photo VARCHAR(255),
-    validator VARCHAR(255),
-    id_user UUID,
-    CONSTRAINT fk_user_professional
-        FOREIGN KEY (id_user) REFERENCES users(id_user)
-        ON UPDATE CASCADE
-        ON DELETE CASCADE
+CREATE TABLE professional_info (
+  id_user INTEGER PRIMARY KEY,  -- assume que há apenas 1 registro por usuário
+  cref_number VARCHAR(20) NOT NULL,
+  cref_card_photo TEXT,         -- opcional, se você quiser armazenar a URL/base64/etc
+  validator VARCHAR(100),
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW(),
+
+  CONSTRAINT fk_user FOREIGN KEY (id_user) REFERENCES users(id_user) ON DELETE CASCADE
 );
 
 CREATE TABLE exercicios (
