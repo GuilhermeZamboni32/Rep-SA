@@ -49,7 +49,7 @@ const { logout } = useContext(GlobalContext)
       return;
     }
 
-    //console.log('Dados enviados:', dados);
+    console.log('Dados enviados:', dados);
 
     try {
       const response = await fetch(`http://localhost:3000/avaliacoes/${dados.id_user}`, {
