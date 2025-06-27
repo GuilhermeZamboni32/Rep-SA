@@ -4,6 +4,7 @@ import Navbar from '../Components/Navbar'
 import './TelaDietaEdit.css'
 import axios from 'axios'
 
+
 function TelaDietaEdit() {
     const navigate = useNavigate()
     const [dietas, setDietas] = useState([]);
@@ -169,14 +170,14 @@ function TelaDietaEdit() {
                         </div>
                         <div className='barra-filtro-edit'>
                         <img className='filtro' src="./Icons/Filtro-2.png" alt="Filtro" />
-                            <select className='select-filtro' value={filtroCategoria} onChange={(e) => setFiltroCategoria(e.target.value)}>
-                                <option value="">Todas as categorias</option>
-                                <option value="emagrecimento">Emagrecimento</option>
-                                <option value="ganho de massa">Ganho de massa</option>
-                                <option value="manutenção">Manutenção</option>
-                                <option value="vegetariana">Vegetariana</option>
-                                <option value="vegana">Vegana</option>
-                                <option value="low carb">Low Carb</option>
+                                 <select className='select-filtro' value={inputCategoriaDieta} onChange={(e) => setInputCategoriaDieta(e.target.value)}>
+                                <option value="">Selecione uma categoria</option>
+                                <option value="Emagrecimento">Emagrecimento</option>
+                                <option value="Ganho de massa">Ganho de massa</option>
+                                <option value="Manutenção">Manutenção</option>
+                                <option value="Vegetariana">Vegetariana</option>
+                                <option value="Vegana">Vegana</option>
+                                <option value="Low Carb">Low Carb</option>
                             </select>
                         </div>
                     </div>
