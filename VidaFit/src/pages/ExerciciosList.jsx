@@ -2,7 +2,7 @@ import React from 'react';
 
 function ExerciciosList({ exercicios, buscarExercicioPorId, deletarExercicio }) {
   return (
-    <section className='exercicios-container-2'>
+    <section className='exercicios-container-21'>
       {exercicios.map((exercicio) => (
         <div key={exercicio.id_exer} className='exercicio'>
           <h2>{exercicio.nome_exer}</h2>

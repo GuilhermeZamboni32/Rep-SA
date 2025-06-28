@@ -1,0 +1,62 @@
+
+
+/*/////////////////////////////////////////////////    MODAL VERDE    /////////////////////////////////////////////////////////////////*/
+
+.modal-verde-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.567);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-verde-content {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 128, 0, 0.4);
+}
+
+.modal-verde-texto {
+  font-size: 1.2rem;
+  color: #0caf32;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+
+/*/////////////////////////////////////////////////    MODAL VERMELHO    /////////////////////////////////////////////////////////////////*/
+
+.modal-vermelho-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.567);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-vermelho-content {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(128, 0, 0, 0.4);
+}
+
+.modal-vermelho-texto {
+  font-size: 1.2rem;
+  color: #af0c0c;
+  font-weight: bold;
+  margin-top: 1rem;
+}

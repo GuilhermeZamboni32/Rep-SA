@@ -36,7 +36,7 @@ function PerfilProfissional() {
             <div className="div-grupo-usuario-prof">
   
               <div className='div-img-prof'>
-              <img className='img' src="the-log.jpg" alt="" />
+              <img className='img' src="perfil-branco.png" alt="" />
               </div>
   
               <div className="espaco-prof"></div>

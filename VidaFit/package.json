@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@lottiefiles/react-lottie-player": "^3.6.0",
     "axios": "^1.10.0",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
@@ -19,6 +20,7 @@
     "firebase": "^11.7.1",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "lottie-react": "^2.4.1",
     "mongodb": "^6.16.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

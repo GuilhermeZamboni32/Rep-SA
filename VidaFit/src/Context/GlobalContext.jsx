@@ -67,6 +67,7 @@ export const GlobalContextProvider = ({ children }) => {
     <GlobalContext.Provider
       value={{
         user,
+        setUser,
         isAuthenticated,
         loading,
         login,
