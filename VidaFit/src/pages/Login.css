@@ -1,3 +1,6 @@
+
+
+
 :root {
     /**extremo claro*/
     --AzulCC1: #1A2D87;
@@ -35,137 +38,162 @@
     --VermelhoEE1: #811320;
     --VermelhoEE2: #4E0511;
 }
-  
 
-  
-  .container-login {
+.container-login {
     width: 100vw;
     height: 100vh;
-    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: linear-gradient(135deg, var(--AzulCC1) 0%, var(--AzulE1) 100%);
-  }
-  
-  .container-login-2 {
-    display: flex;
-    width: 100%;
-  }
-  
-  .div-login-esquerda {
+}
+
+.container-login-2{ 
+    display: flex; 
+    flex-direction: row; 
+    align-items: center; 
+}
+
+.div-cadas-esquerda-login{
     width: 50%;
-    height: 100%;
+    height: 100vh;
     background: linear-gradient(135deg, var(--AzulCC1) 0%, var(--AzulE1) 100%);
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 40px;
     flex-direction: column;
-  }
-  
-  .espaco-0-l {
-    height: 50px;
-  }
-  
-  .titulo-logo-l {
-    height: 350px;
-    width: 650px;
-  }
-  
-  .div-login-dirita {
+}
+        .espaco-0-login{
+            height: 550px;
+        }
+        .titulo-logo-login{
+            height: 350px;
+            width: 650px;
+        }
+.div-cadas-direita-login{
     width: 50%;
-    height: 100%;
+    height: 100vh;
     background-color: var(--AzulE2);
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  
-  .cadas-inf-l {
-    width: 400px;
-    padding: 40px;
+    flex-direction: column; 
+}
+
+
+.cadas-inf-login{
+    width: 80%;
+    height: 700px;
     border-radius: 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
-  }
-  
-  .titulo-cadas {
-    color: var(--BrancoCC1);
-    font-size: 32px;
-    text-align: center;
-  }
-  
-  .input-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-  
-  label {
-    color: var(--BrancoCC1);
-    font-weight: 600;
-  }
-  
-  .inputs {
-    padding: 10px;
-    border: 1px solid var(--BrancoCC1);
-    color: var(--AzulC1);
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  
-  .inputs:focus {
-    border-color: var(--AzulCC1);
-  }
-  
-  .input-error {
-    border-color: var(--VermelhoC1);
-  }
-  
-  .botao-login {
-    background-color: var(--AzulCC1);
-    color: var(--BrancoCC2);
-    padding: 10px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-  }
-  
-  .botao-login:hover {
-    background-color: var(--AzulE1);
-  }
-  
-  .register-link {
-    text-align: center;
-    color: var(--BrancoCC2);
-  }
-  .register-link:hover {
-    color: var(--BrancoC2);
-  }
-  
-  .register-link a {
-    color: var(--BrancoCC2);
-    font-weight: bold;
-    text-decoration: none;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+        .titulo-cadas-login{
+           /* background-color: var(--BrancoCC2);*/
+            text-align: center;
+        }
+                .logomarca-login{
+                    height: 100px;
+                    width: 250px;
+
+                }
+
+        .cadas-input-login{
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            border: 1px solid var(--BrancoCC1);
+            color: var(--AzulCC1);
+            padding: 20px;
+        }
+
+                .texto-cadas-login{
+                    width: 100%;
+                    height: 50px;
+                    border-radius: 10px;
+                    border: 1px solid var(--BrancoEE1);
+                    background-color: var(--BrancoCC2);
+                    color: var(--AzulCC1);
+                    padding: 10px;
+                    font-size: 16px;
+                    margin-top: 20px;
+
+                }
+
+.espaco-2-login{
+    width: 50%;
+    height: 10px;
   }
 
-  .register-link a:hover {
+  .checkbox-container-login{
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+        .checkbox-login{
+            width: 20px;
+            height: 20px;
+            border-radius: 5px;
+            border: 1px solid var(--BrancoCC1);
+            background-color: var(--BrancoCC2);
+            color: var(--BrancoCC2);
+        }
+        
+
+        .button-login{
+            width: 80%;
+            height: 50px;
+            border-radius: 10px;
+            border: 1px solid var(--BrancoCC1);
+            background-color: var(--BrancoCC2);
+            color: var(--AzulCC1);
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .button-login:hover{
+            background-color: var(--BrancoCC1);
+            color: var(--AzulCC2);
+        }
+
+.mostra-senha-login{
+    color: var(--BrancoCC1);
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.register-link-login-1{
     color: var(--BrancoC2);
-    font-weight: bold;
     text-decoration: none;
-  }
-  
-  .register-link a:hover {
-    text-decoration: underline;
-  }
-  
-  .error-message {
-    color: var(--VermelhoC1);
-    padding: 8px;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: 600;
-  }
-  
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.register-link-login-1:hover{
+    color: var(--BrancoC2);
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 20px;
+}
+        .register-link-login-2{
+        color: var(--BrancoCC1);
+        text-decoration: none;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+
+    .register-link-login-2:hover{
+        color: var(--BrancoCC2);
+        text-decoration: none;
+        font-size: 16px;
+        margin-top: 20px;
+    }

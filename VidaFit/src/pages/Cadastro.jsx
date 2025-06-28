@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs';
 import ModalVerde from '../Components/ModalVerde';
 import ModalVermelho from '../Components/ModalVermelho';
 
+
 function Cadastro() {
   const [user, setUsers] = useState({ username: '', password_user: '', email_user: '', age_user: '' });
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -132,16 +133,16 @@ function Cadastro() {
             </div>
 
             <div className='checkbox-container'>
-              <input type='checkbox' checked={showPassword} onChange={(e) => setShowPassword(e.target.checked)} />
-              <label>Mostrar senha</label>
+              <input type='checkbox'  checked={showPassword} onChange={(e) => setShowPassword(e.target.checked)} />
+              <label className='mostra-senha-cadastro'>Mostrar senha</label>
             </div>
 
             <div className='espaco-3'></div>
             <button className='button-cadastro' onClick={handleReister}>
               <h1>Cadastrar</h1>
             </button>
-            <p className='register-link'>
-              Já tem uma conta? <Link to='/login'>Entre</Link>
+            <p className='register-link-cadastro-1'>
+              Já tem uma conta? <Link className='register-link-cadastro-2' to='/login'>Entre</Link>
             </p>
           </div>
         </div>

@@ -1,5 +1,7 @@
+import ModalVermelho from '../Components/ModalVermelho';
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useState, useEffect } from 'react'
+import ModalVerde from '../Components/ModalVerde'
 import Navbar from '../Components/Navbar'
 import './TelaDietaEdit.css'
 import axios from 'axios'
@@ -8,12 +10,17 @@ import axios from 'axios'
 function TelaDietaEdit() {
     const navigate = useNavigate()
     const [dietas, setDietas] = useState([]);
-
     const [dietaSelecionada, setDietaSelecionada] = useState(null);
     const [inputCategoriaDieta, setInputCategoriaDieta] = useState('');
     const [inputNomeDieta, setInputNomeDieta] = useState('');
     const [inputCaloriasDieta, setInputCaloriasDieta] = useState('');
     const [inputDescricaoDieta, setInputDescricaoDieta] = useState('');
+
+    const [mostrarModal, setMostrarModal] = useState(false);
+    const [mensagemModal, setMensagemModal] = useState('');
+    
+    const [mostrarErro, setMostrarErro] = useState(false);
+    const [mensagemErro, setMensagemErro] = useState('');
     
     const [searchTerm, setSearchTerm] = useState('');
     const [filtroCategoria, setFiltroCategoria] = useState('');
@@ -43,7 +50,9 @@ function TelaDietaEdit() {
 
     const cadastrarDieta = async () => {
         if (!inputNomeDieta || !inputCaloriasDieta || !inputDescricaoDieta || !inputCategoriaDieta) {
-            alert('Por favor, preencha todos os campos.');
+            setMensagemErro('Por favor, preencha todos os campos.');
+            setMostrarErro(true);
+            setTimeout(() => setMostrarErro(false), 5000);
             return;
         }
         try {
@@ -57,10 +66,15 @@ function TelaDietaEdit() {
             if (response.status === 201) {
                 fetchDietas();
                 limparForm();
-                alert('Dieta cadastrada com sucesso!');
+                setMensagemModal('Dieta cadastrado com sucesso!');
+                setMostrarModal(true);
+                setTimeout(() => setMostrarModal(false), 30000);
             }
         } catch (error) {
-            console.error('Erro ao adicionar dieta:', error);
+            console.error('Erro ao adicionar Dieta:', error);
+            setMensagemErro('Erro ao cadastrar Dieta!');
+            setMostrarErro(true);
+            setTimeout(() => setMostrarErro(false), 5000);
         }
     };
 
@@ -81,10 +95,15 @@ function TelaDietaEdit() {
                 fetchDietas();
                 setDietaSelecionada(null);
                 limparForm();
-                alert('Dieta alterada com sucesso!');
+                setMensagemModal('Dieta alterado com sucesso!');
+                setMostrarModal(true);
+                setTimeout(() => setMostrarModal(false), 30000);
             }
         } catch (error) {
-            console.error('Erro ao atualizar dieta:', error);
+             console.error('Erro ao atualizar Dieta:', error);
+            setMensagemErro('Erro ao atualizar Dieta!');
+            setMostrarErro(true);
+            setTimeout(() => setMostrarErro(false), 5000);
         }
     };
 
@@ -94,7 +113,10 @@ function TelaDietaEdit() {
             setDietaSelecionada(response.data);
             exibirDieta(response.data);
         } catch (error) {
-            console.error('Erro ao buscar dieta por ID:', error);
+            console.error('Erro ao buscar Dieta por ID:', error);
+            setMensagemErro('Erro ao buscar Dieta!');
+            setMostrarErro(true);
+            setTimeout(() => setMostrarErro(false), 5000);
         }
     };
 
@@ -103,10 +125,17 @@ function TelaDietaEdit() {
             const response = await axios.delete(`http://localhost:3000/dietas/${id}`);
             if (response.status === 200) {
                 fetchDietas();
-                alert('Dieta deletada com sucesso!');
+                setDietaSelecionada(null);
+                limparForm();
+                setMensagemModal('Dieta deletado com sucesso!');
+                setMostrarModal(true);
+                setTimeout(() => setMostrarModal(false), 30000);
             }
         } catch (error) {
-            console.error('Erro ao deletar dieta:', error);
+            console.error('Erro ao deletar Dieta:', error);
+            setMensagemErro('Erro ao deletar Dieta!');
+            setMostrarErro(true);
+            setTimeout(() => setMostrarErro(false), 5000);
         }
     };
 
@@ -146,12 +175,12 @@ function TelaDietaEdit() {
                                 <label>Categoria</label>
                                 <select value={inputCategoriaDieta} onChange={(e) => setInputCategoriaDieta(e.target.value)}>
                                     <option value="">Selecione uma categoria</option>
-                                    <option value="emagrecimento">Emagrecimento</option>
-                                    <option value="ganho de massa">Ganho de massa</option>
-                                    <option value="manutenção">Manutenção</option>
-                                    <option value="vegetariana">Vegetariana</option>
-                                    <option value="vegana">Vegana</option>
-                                    <option value="low carb">Low Carb</option>
+                                    <option value="Emagrecimento">Emagrecimento</option>
+                                    <option value="Ganho de massa">Ganho de massa</option>
+                                    <option value="Manutenção">Manutenção</option>
+                                    <option value="Vegetariana">Vegetariana</option>
+                                    <option value="Vegana">Vegana</option>
+                                    <option value="Low Carb">Low Carb</option>
                                 </select>
                             </div>
                             {dietaSelecionada
@@ -170,15 +199,15 @@ function TelaDietaEdit() {
                         </div>
                         <div className='barra-filtro-edit'>
                         <img className='filtro' src="./Icons/Filtro-2.png" alt="Filtro" />
-                                 <select className='select-filtro' value={inputCategoriaDieta} onChange={(e) => setInputCategoriaDieta(e.target.value)}>
-                                <option value="">Selecione uma categoria</option>
-                                <option value="Emagrecimento">Emagrecimento</option>
-                                <option value="Ganho de massa">Ganho de massa</option>
-                                <option value="Manutenção">Manutenção</option>
-                                <option value="Vegetariana">Vegetariana</option>
-                                <option value="Vegana">Vegana</option>
-                                <option value="Low Carb">Low Carb</option>
-                            </select>
+                                <select className='select-filtro' value={filtroCategoria} onChange={(e) => setFiltroCategoria(e.target.value)}>
+                                    <option value="">Selecione uma categoria</option>
+                                    <option value="Emagrecimento">Emagrecimento</option>
+                                    <option value="Ganho de massa">Ganho de massa</option>
+                                    <option value="Manutenção">Manutenção</option>
+                                    <option value="Vegetariana">Vegetariana</option>
+                                    <option value="Vegana">Vegana</option>
+                                    <option value="Low Carb">Low Carb</option>
+                                </select>
                         </div>
                     </div>
 

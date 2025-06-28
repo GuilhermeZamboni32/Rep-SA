@@ -98,25 +98,31 @@ const formatDate = (date) => {
               <div className="espaco"></div>
             </div>
            <div className='profisional-selecionado'>
-            <h4>Profissional selecionado</h4>
-            {selectedProfessional ? (
-              <div>
-                <p >{selectedProfessional}</p>
-                <button
-                  className="button-perfil"
-                  onClick={() => navigate('/perfilprofissional')}
-                >
-                  Perfil Profissional
-                </button>
-              </div>
-            ) : (
-              <button
-                className="button-perfil"
-                onClick={() => navigate('/home')}
-              >
-                Escolher Profissional
-              </button>
-            )}
+           <p className="label-profissional">profissional selecionado</p>
+
+                {selectedProfessional ? (
+                  <div className="linha-profissional">
+                    <input
+                      className="campo-profissional"
+                      type="text"
+                      value={selectedProfessional}
+                      readOnly
+                    />
+                    <button
+                      className="botao-perfil-profissional"
+                      onClick={() => navigate('/perfilprofissional')}
+                    >
+                      Perfil profissional
+                    </button>
+                  </div>
+                ) : (
+                  <button
+                    className="button-perfil"
+                    onClick={() => navigate('/home')}
+                  >
+                    Escolher Profissional
+                  </button>
+                )}
           </div>
 
             <div className='botoes-perfil'>
@@ -149,6 +155,7 @@ const formatDate = (date) => {
           </div>
 
          
+
 
           <div className="div-grupo-dieta">
           <div className="titulo">

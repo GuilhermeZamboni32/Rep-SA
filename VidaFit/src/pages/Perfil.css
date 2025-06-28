@@ -121,14 +121,54 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.label-profissional {
+  font-size: 18px;
+  text-transform: lowercase;
+  margin-bottom: 8px;
+  color: var(--AzulEE1);
+  font-weight: bold;
+}
+
+.linha-profissional {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.campo-profissional {
+  flex: 1;
+  background-color: var(--BrancoCC1);
+  color: var(--AzulCC1);
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.botao-perfil-profissional {
+  background-color: var(--AzulC1);
+  color: var(--BrancoCC2);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.botao-perfil-profissional:hover {
+  background-color: var(--AzulC2);
+}
+
+
 .botoes-perfil{
-  margin-top: 50px;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  margin-block: 10px;
 }
 
 .button-perfil{
@@ -164,6 +204,7 @@
     border-radius: 8px;
   }
   
+
   .exercicios button, .dieta1 button {
     display: block;
     width: 100%;

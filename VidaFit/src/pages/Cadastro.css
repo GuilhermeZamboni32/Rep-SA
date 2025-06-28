@@ -1,6 +1,7 @@
 
 
 
+
 :root {
     /**extremo claro*/
     --AzulCC1: #1A2D87;
@@ -165,3 +166,36 @@
             color: var(--AzulCC2);
         }
 
+
+.mostra-senha-cadastro{
+    color: var(--BrancoCC1);
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.register-link-cadastro-1{
+    color: var(--BrancoC2);
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.register-link-cadastro-1:hover{
+    color: var(--BrancoC2);
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 20px;
+}
+        .register-link-cadastro-2{
+        color: var(--BrancoCC1);
+        text-decoration: none;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+
+    .register-link-cadastro-2:hover{
+        color: var(--BrancoCC2);
+        text-decoration: none;
+        font-size: 16px;
+        margin-top: 20px;
+    }

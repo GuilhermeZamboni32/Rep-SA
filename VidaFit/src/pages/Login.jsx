@@ -25,6 +25,7 @@ function Login() {
     setMostrarErro(false);
     setMostrarModal(false);
 
+
     try {
       const response = await axios.post('http://localhost:3000/login', {
         email_user: form.email_user,
@@ -74,80 +75,74 @@ function Login() {
   };
 
   return (
-    <div className="container-login">
-      <div className='container-login-2'>
-        {/* <Navbar /> */}
-
-        <div className='div-login-esquerda'>
-          <div className='espaco-0-l'></div>
-          <img className='titulo-logo-l' src="logomarca_VF.png" alt="" />
-        </div>
-
-        <div className='div-login-dirita'>
-          <div className="cadas-inf-l">
-            <form onSubmit={handleSubmit}>
-              <h2 className="titulo-cadas">Login</h2>
-
-              <div className="input-group">
-                <label>Email:</label>
-                <input
-                  type="email"
-                  name="email_user"
-                  value={form.email_user}
-                  onChange={handleChange}
-                  className="inputs"
-                  required
-                />
-
-                <label>Senha:</label>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  name="password_user"
-                  value={form.password_user}
-                  onChange={handleChange}
-                  className="inputs"
-                  required
-                />
-
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="botao-login"
-                >
-                  {showPassword ? 'Ocultar' : 'Mostrar'}
-                </button>
-
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="botao-login"
-                >
-                  {loading ? 'Entrando...' : 'Login'}
-                </button>
-
-                <p className="register-link">
-                  Não tem uma conta? <Link to="/cadastro">Registre-se</Link>
-                </p>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      {/* MODAIS */}
-      {mostrarModal && (
-        <ModalVerde
-          mensagem={mensagemModal}
-          onClose={() => setMostrarModal(false)}
-        />
-      )}
-      {mostrarErro && (
-        <ModalVermelho
-          mensagem={mensagemErro}
-          onClose={() => setMostrarErro(false)}
-        />
-      )}
+   <div className='container-login'>
+  {/* <Navbar /> */}
+  <div className='container-login-2'>
+    <div className='div-cadas-esquerda-login'>
+      <div className='espaco-0-login'></div>
+      <img className='titulo-logo-login' src='logomarca_VF.png' alt='' />
     </div>
+
+    <div className='div-cadas-direita-login'>
+      <div className='cadas-inf-login'>
+        <div className='titulo-cadas-login'>
+          <img className='logomarca-login' src='logotipo_VF_2.png' alt='' />
+        </div>
+
+        <form className='cadas-input-login' onSubmit={handleSubmit}>
+          <input
+            className='texto-cadas-login'
+            type='email'
+            name='email_user'
+            placeholder='Email:'
+            value={form.email_user}
+            onChange={handleChange}
+            required
+          />
+          <input
+            className='texto-cadas-login'
+            type={showPassword ? 'text' : 'password'}
+            name='password_user'
+            placeholder='Senha:'
+            value={form.password_user}
+            onChange={handleChange}
+            required
+          />
+          <div className='espaco-2-login'></div>
+        </form>
+
+        <div className='checkbox-container-login'>
+          <input
+            type='checkbox'
+            checked={showPassword}
+            onChange={(e) => setShowPassword(e.target.checked)}
+            className='checkbox-login'
+          />
+          <label className='mostra-senha-login'>Mostrar senha</label>
+        </div>
+
+        <div className='espaco-3-login'></div>
+
+        <button type='submit' className='button-login' onClick={handleSubmit} disabled={loading}>
+          <h1>{loading ? 'Entrando...' : 'Login'}</h1>
+        </button>
+
+        <p className='register-link-login-1'>
+          Não tem uma conta? <Link className='register-link-login-2' to='/cadastro'>Registre-se</Link>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* MODAIS */}
+  {mostrarModal && (
+    <ModalVerde mensagem={mensagemModal} onClose={() => setMostrarModal(false)} />
+  )}
+  {mostrarErro && (
+    <ModalVermelho mensagem={mensagemErro} onClose={() => setMostrarErro(false)} />
+  )}
+</div>
+
   );
 }
 

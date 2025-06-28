@@ -355,14 +355,29 @@ app.get('/dietas/:id', async (req, res) => {
 
 app.post('/dietas', async (req, res) => {
   const { nome_dieta, calorias_dieta, descricao_dieta, categoria_dieta } = req.body;
+
+  const categoriasPermitidas = [
+    'Emagrecimento',
+    'Ganho de massa',
+    'Manutenção',
+    'Vegetariana',
+    'Vegana',
+    'Low Carb'
+  ];
+
+  if (!categoriasPermitidas.includes(categoria_dieta)) {
+    return res.status(400).send(`Categoria inválida. Use uma das seguintes: ${categoriasPermitidas.join(', ')}`);
+  }
+
   try {
-      const result = await pool.query(
-          'INSERT INTO dietas (nome_dieta, calorias_dieta, descricao_dieta, categoria_dieta) VALUES ($1, $2, $3, $4) RETURNING *',
-          [nome_dieta, calorias_dieta, descricao_dieta, categoria_dieta]
-      );
-      res.status(201).json(result.rows[0]);
+    const result = await pool.query(
+      'INSERT INTO dietas (nome_dieta, calorias_dieta, descricao_dieta, categoria_dieta) VALUES ($1, $2, $3, $4) RETURNING *',
+      [nome_dieta, calorias_dieta, descricao_dieta, categoria_dieta]
+    );
+    res.status(201).json(result.rows[0]);
   } catch (err) {
-      res.status(500).send('Erro ao adicionar dieta');
+    console.error('Erro ao adicionar dieta:', err);
+    res.status(500).send('Erro ao adicionar dieta');
   }
 });
 

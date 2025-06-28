@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './DietaEdit.css'
 
+
 function DietaEdit({img, nome, descricao, onSave, onDelete}) {
     const [isEditing, setIsEditing] = useState(false);
     const [editedNome, setEditedNome] = useState(nome);
