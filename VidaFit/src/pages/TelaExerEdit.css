@@ -46,7 +46,7 @@
 
 .div-grup-exer-edit{
     background-color: var(--BrancoC1);
-    margin: 100px;
+    margin: 97px;
     display: flex;
     flex-direction: row;
     gap: 50px;
@@ -91,14 +91,8 @@
 .div-baixo-edit-exer-2-baixo{
     background-color: var(--BrancoEE1);
     width: 100%;
-    height: 525px;
-    display: flex;
-    overflow-y: auto;
-    
+    height: 83%;
 }
-
-
-
 
 /*
 .lista-cards-exer-edit {
@@ -113,9 +107,6 @@
     gap: 20px;
 }  
   */
-
-
-
 
 ::-webkit-scrollbar {
     width: 12px;
@@ -162,6 +153,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   overflow-y: auto;
+ 
+  
 }
 
 .titulo-exercicio{

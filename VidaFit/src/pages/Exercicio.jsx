@@ -23,3 +23,4 @@ function ListaExercicios({ exercicios, onEditar, onDeletar }) {
 
 export default ListaExercicios;
 
+

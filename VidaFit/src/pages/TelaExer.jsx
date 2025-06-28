@@ -27,6 +27,7 @@ function TelaExer() {
   }
 
   
+  
   return (
     <div className='container-exer'>
       <Navbar />

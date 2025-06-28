@@ -47,7 +47,7 @@
 .div-grup-exer{
     
     background-color: var(--BrancoC1);
-    margin: 100px;
+    margin: 99px;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -110,15 +110,16 @@
 
 
 .div-baixo{
-   background-color: var(--BrancoCC2);
+   background-color: var(--BrancoEE1);
+    border: #222326 8px solid;
     border-radius: 10px;
     max-height: 530px;
     width: 100%;
     gap: 18px;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
     overflow-y: auto;
 }
+
 
 

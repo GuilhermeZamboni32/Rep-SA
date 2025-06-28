@@ -232,6 +232,10 @@ function TelaDietaEdit() {
                     </div>
                 </div>
             </div>
+             {/* MODAL */}
+            {mostrarModal && ( <ModalVerde mensagem={mensagemModal} onClose={() => setMostrarModal(false)} />)}
+            {mostrarErro && ( <ModalVermelho  mensagem={mensagemErro}  onClose={() => setMostrarErro(false)} />)}
+
         </div>
     )
 }
