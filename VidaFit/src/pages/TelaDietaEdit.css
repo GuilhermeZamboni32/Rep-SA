@@ -36,6 +36,7 @@
   --VermelhoEE2: #4E0511;
 }
 
+
 .container-dieta-edit {
   background: linear-gradient(135deg, var(--AzulCC1) 0%, var(--AzulE1) 100%);
   min-height: 100vh;
@@ -228,7 +229,7 @@
   gap: 8px;
   margin-bottom: 0;
   width: 400px;
-  height: 300px;
+  
 }
 
 .dieta h2,
@@ -241,6 +242,7 @@
   margin: 0 0 6px 0;
   display: inline-block;
   font-size: 1.05rem;
+  word-wrap: break-word;
 }
 
 .dieta h2 {
