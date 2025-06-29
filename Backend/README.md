@@ -29,7 +29,7 @@ CREATE TABLE users(
 
 -- Tabela de profissionais
 CREATE TABLE professional_info (
-  id_user INTEGER PRIMARY KEY,  -- assume que há apenas 1 registro por usuário
+  id_use UUID PRIMARY KEY,  -- assume que há apenas 1 registro por usuário
   cref_number VARCHAR(20) NOT NULL,
   cref_card_photo TEXT,         -- opcional, se você quiser armazenar a URL/base64/etc
   validator VARCHAR(100),

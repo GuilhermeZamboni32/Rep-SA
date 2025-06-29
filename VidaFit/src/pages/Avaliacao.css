@@ -171,6 +171,17 @@
       justify-content: top;
 
     }
+    .profissional-selecionado-avaliacao{
+      background-color: var(--AzulP2);
+      color: var(--BrancoCC2);
+      width: 60vh;
+      height: 10vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
     
     .Ava-estrela{
         background-color: var(--AzulC1);
@@ -189,6 +200,7 @@
         border-radius: 8px;
         width: 111vh;
         height: 25vh;
+        margin-bottom: 10px;
         display: flex;
         text-align: center;
         align-items: stretch;
@@ -201,9 +213,7 @@
       height:  90vh; 
       resize: none;
       font-family: Georgia, 'Times New Roman', Times, serif;
-      
     }
-
     .titulo-Ava-coment{
       color: var(--BrancoCC2);
       font-size: 1.2rem;
@@ -212,14 +222,17 @@
       border-radius: 3px;
     }
     .btn-av{
-      background-color: var(--AzulP2);
-      background: var(--BrancoCC2);
+      background-color: var(--BrancoCC1);
+      background: var(--AzulP2);
       display: flex;
+      height: 4vh;
+      width:30vh;
       justify-content: center;
-      align-items: center;;
-      border: none ;
-      padding: 2px ;
+      align-items: center;
+      border-radius: 10px ;
+      padding: 1vh;
       cursor: pointer; 
+      margin-bottom: 10px;
     }
     .btn-star{
       background-color: var(--AzulP2);

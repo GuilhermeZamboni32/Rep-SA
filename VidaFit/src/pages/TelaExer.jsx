@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ExerciciosList from './ExerciciosList';
 
+
 function TelaExer() {
   const navigate = useNavigate();
   const [exercicios, setExercicios] = useState([]);

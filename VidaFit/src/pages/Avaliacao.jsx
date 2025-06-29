@@ -11,7 +11,7 @@ function Avaliacao() {
   const [nota, setNota] = useState(0)
   const { user } = useContext(GlobalContext)
   const navigate = useNavigate()
-
+  const profissional = JSON.parse(localStorage.getItem('profissionalParaAvaliar')) || {};
   const [mostrarModal, setMostrarModal] = useState(false)
   const [mensagemModal, setMensagemModal] = useState('')
   const [mostrarErro, setMostrarErro] = useState(false)
@@ -37,6 +37,7 @@ function Avaliacao() {
       nota: nota || null,
       comentario,
       id_user: user?.id,
+      id_profissional: profissional.id,
     }
 
     if (!dados.id_user) {
@@ -71,6 +72,7 @@ function Avaliacao() {
 
   const handleStarClick = (index, esquerda) => {
     const novaNota = esquerda ? parseFloat((index + 0.5).toFixed(2)) : index + 1
+    if (novaNota > 5) novaNota = 5
     setNota(index === 0 && novaNota === nota ? 0 : novaNota)
   }
 
@@ -109,7 +111,10 @@ function Avaliacao() {
 
         <div className="div-grupo-Avaliacao">
           <div className="titulo-Ava">
-            <h1>Avaliar Usuário</h1>
+            <h1>Avaliar Profisional</h1>
+          </div>
+          <div className="profissional-selecionado-avaliacao">
+            <strong>Profissional selecionado:</strong> {profissional?.nome || profissional?.username || profissional}
           </div>
 
           <div className="Ava-estrela">
@@ -137,7 +142,7 @@ function Avaliacao() {
               rows="6"
             />
           </div>
-          <button className='btn-av' onClick={enviarAvaliacao}>Enviar</button>
+          <button className='btn-av' onClick={enviarAvaliacao}>Enviar avaliaçao</button>
         </div>
       </div>
 

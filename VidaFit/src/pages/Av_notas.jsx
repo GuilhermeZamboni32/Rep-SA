@@ -2,19 +2,29 @@ import React from 'react'
 import "./Av_notas.css"
 import { Link } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
-import {useState} from 'react'
+import {useState , useEffect} from 'react'
 
 function Av_notas () {
   const [filter, setFilter] = useState('')
-  const [pesquisa, setpesquisa] = useState('')
+  const [avaliacoes, setAvaliacoes] = useState([])
 
   const handleFilterChange = (e) => {
     setFilter(e.target.value)
   };
 
-  const handlepesquisaChange = (e) => {
-    setpesquisa(e.target.value)
-  };
+    useEffect(() => {
+    fetch('http://localhost:3000/avaliacoes')
+      .then(res => res.json())
+      .then(data => setAvaliacoes(data))
+      .catch(err => console.error('Erro ao buscar avaliações:', err))
+  }, [])
+
+ const avaliacoesFiltradas = filter
+    ? avaliacoes.filter(av => 
+        Number(av.nota) === Number(filter.replace('_estrela', '').replace(',', '.'))
+        && av.nota !== null && av.comentario
+      )
+    : avaliacoes.filter(av => av.nota !== null && av.comentario)
 
   return (
     
@@ -39,132 +49,22 @@ function Av_notas () {
             <option value="4.5_estrela">4estrela meia </option>
             <option value="4_estrela">4 estrela inteira </option> 
             <option value="5.5_estrela">5 estrela meia </option>    
-            <option value="5 estrela">5 estrela inteira </option>       
+            <option value="5_estrela">5 estrela inteira </option>       
           </select>
         </div>
         </div>
         <div className='container_Av'>
          <div className="Av_notas">
-          <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-          </div>
-          <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-          </div>
-          <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-          </div>
-          <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-          <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-          <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>    <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-          <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-           </div>
-           <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-         <div className='card'>
-            <p>nome</p>
-           <h2>comentario</h2>
-         </div>
-
-          </div>
+          {avaliacoesFiltradas.map((av, idx) => (
+              <div className='card' key={idx}>
+                <span>Nota: {av.nota}</span>
+                <p>{av.comentario}</p>
+              </div>
+            ))}
         </div>
       </div>
     </div>
+  </div>
   )
 }
 

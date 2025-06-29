@@ -427,6 +427,18 @@ app.post(`/avaliacoes/:id_user`, async (req, res) => {
     res.status(500).json({ error: 'Erro ao registrar avaliação.' });
   }
 });
+ app.get('/avaliacoes', async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT nota, comentario FROM avaliacoes WHERE nota IS NOT NULL AND comentario IS NOT NULL ORDER BY id_avaliacao DESC`
+    );
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Erro ao buscar avaliações:', err.message);
+    res.status(500).json({ error: 'Erro ao buscar avaliações.' });
+  }
+});
+ 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                      ROTAS DE avaliaçao                                          //
