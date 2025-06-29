@@ -108,10 +108,15 @@
 
 
 .div-baixo-dieta{
-    background-color: var(--BrancoP2);
-    min-width: 100vh;
-    height: 500px;
-    border-radius: 8px;
+    background-color: var(--BrancoEE1);
     border: #222326 8px solid;
+    border-radius: 10px;
+    max-height: 530px;
+    width: 100%;
+    gap: 18px;
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto;
 }
+
 
