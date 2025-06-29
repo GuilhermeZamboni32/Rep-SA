@@ -1,50 +1,23 @@
-import React, { useEffect } from 'react'
-import './Dieta.css'
-import { useState } from 'react';
+import React from 'react';
 
-function Dieta({img, nome, descricao}) {
-  const [DietaMarcada, setDietaMarcada] = useState(false);
-
-  const DietaConcluida = () => {
-    setDietaMarcada(true);
-  };
-  const DietaNaoConcluida = () => {
-    setDietaMarcada(false); 
-  };
-
+function ListaDietas({ dietas, onEditar, onDeletar }) {
   return (
-    
-    <div className={`container-produto-dieta ${DietaMarcada ? 'apagado' : ''}`}>
-
-      <div className='imagem-dieta'>
-        <img src={img} className='img-produto-dieta'/>
-      </div>
-
-
-      <div className='nome-dieta-t'>
-        <div className='nome-dieta-b'>
-          <h1>{nome}</h1>
+    <section className='dietas-container'>
+      {dietas.map((dieta) => (
+        <div key={dieta.id_dieta} className='dieta'>
+          <h2>{dieta.nome_dieta}</h2>
+          <p>Descrição: {dieta.descricao_dieta}</p>
+          <p>Calorias: {dieta.calorias_dieta}</p>
+          <p>ID: {dieta.id_dieta}</p>
+          <p>Categoria: {dieta.categoria_dieta}</p>
+          <div className='buttons-cards-dieta'>
+            <button onClick={() => onEditar(dieta.id_dieta)}>Editar</button>
+            <button onClick={() => onDeletar(dieta.id_dieta)}>Deletar</button>
+          </div>
         </div>
-      </div>
-
-      <div className='descricao-dieta'>
-        <h2>{descricao}</h2>
-      </div>
-
-      <button className='button-x' onClick={DietaNaoConcluida}>
-        <img className='icone-x' src="./Icons/icone-X.png" alt="" />
-      </button>
-
-      <button className='button-l' onClick={DietaConcluida}>
-        <img className='icone-l' src="./Icons/icon-L.png" alt="" />
-      </button>
-
-
-        
-        
-    
-    </div>
-  )
+      ))}
+    </section>
+  );
 }
 
-export default Dieta
+export default ListaDietas;

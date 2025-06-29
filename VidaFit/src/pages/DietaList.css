@@ -1,0 +1,44 @@
+.dietas-list-container{
+    border-radius: 10px;
+  max-height: 530px;
+  width: 100%;
+  gap: 18px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.dieta-card{
+    background: #a0a0a0;
+  border-radius: 28px;
+  padding: 18px 18px 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 0;
+  width: 400px;
+}
+
+
+.dieta-card h2,
+.dieta-card p {
+  background: #bdbdbd;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 16px;
+  padding: 4px 14px;
+  margin: 0 0 6px 0;
+  display: inline-block;
+  font-size: 1.05rem;
+  word-wrap: break-word;
+}
+
+.dieta-card h2 {
+  font-size: 1.1rem;
+  margin-bottom: 2px;
+}
+
+.dieta-card p {
+  font-size: 1rem;
+}
