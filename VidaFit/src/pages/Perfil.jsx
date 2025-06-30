@@ -47,10 +47,15 @@ const formatDate = (date) => {
     navigate('/editperfil');
   }
 
-  function avaliar(){
+  function avaliar() {
+  if (selectedProfessional) {
+    // Se selectedProfessional for só o nome:
+    localStorage.setItem('profissionalParaAvaliar', JSON.stringify({ nome: selectedProfessional }));
     navigate('/avaliacao');
+  } else {
+    alert('Selecione um profissional primeiro!');
   }
-
+}
   return (
    
     <div className="container-perfil">
@@ -128,10 +133,10 @@ const formatDate = (date) => {
             <div className='botoes-perfil'>
 
               <button className='button-perfil' onClick={edit}>Editar</button>
-              <button className='button-perfil' onClick={avaliar}>Avaliar Usuario</button>
+              <button className='button-perfil' onClick={avaliar}>Avaliar Profisional</button>
               <button className='button-perfil' onClick={logout}>Sair</button>
             </div>
-
+                                                                                                                                                      
           </div>
 
         
