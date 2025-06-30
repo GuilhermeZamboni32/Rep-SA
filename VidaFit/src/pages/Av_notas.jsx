@@ -2,22 +2,23 @@ import React from 'react'
 import "./Av_notas.css"
 import { Link } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
-import {useState , useEffect} from 'react'
-
+import {useState , useEffect, useContext } from 'react'
+import { GlobalContext } from "../Context/GlobalContext"
 function Av_notas () {
   const [filter, setFilter] = useState('')
   const [avaliacoes, setAvaliacoes] = useState([])
-
+  const { user } = useContext(GlobalContext)
   const handleFilterChange = (e) => {
     setFilter(e.target.value)
   };
 
-    useEffect(() => {
-    fetch('http://localhost:3000/avaliacoes')
-      .then(res => res.json())
-      .then(data => setAvaliacoes(data))
-      .catch(err => console.error('Erro ao buscar avaliações:', err))
-  }, [])
+useEffect(() => {
+  if (!user) return; // Só executa se user existir
+  fetch(`http://localhost:3000/avaliacoes/${user.id}`)
+    .then(res => res.json())
+    .then(data => setAvaliacoes(data))
+    .catch(err => console.error('Erro ao buscar avaliações:', err))
+}, [user])
 
  const avaliacoesFiltradas = filter
     ? avaliacoes.filter(av => 
@@ -55,12 +56,13 @@ function Av_notas () {
         </div>
         <div className='container_Av'>
          <div className="Av_notas">
-          {avaliacoesFiltradas.map((av, idx) => (
-              <div className='card' key={idx}>
-                <span>Nota: {av.nota}</span>
-                <p>{av.comentario}</p>
-              </div>
-            ))}
+          {avaliacoesFiltradas.map((av, index) => (
+         <div className='card' key={index}>
+         <span><strong>Profissional:</strong> {av.nome_profissional}</span>
+         <span>Nota: {av.nota}</span>
+         <p>{av.comentario}</p>
+         </div>
+         ))}
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Navbar from '../Components/Navbar'
 import "./Avaliacao.css"
 import { useNavigate } from 'react-router-dom'
@@ -11,11 +11,12 @@ function Avaliacao() {
   const [nota, setNota] = useState(0)
   const { user } = useContext(GlobalContext)
   const navigate = useNavigate()
-  const profissional = JSON.parse(localStorage.getItem('profissionalParaAvaliar')) || {};
+  const profissional = JSON.parse(localStorage.getItem('profissionalParaAvaliar')) || {};;
   const [mostrarModal, setMostrarModal] = useState(false)
   const [mensagemModal, setMensagemModal] = useState('')
   const [mostrarErro, setMostrarErro] = useState(false)
   const [mensagemErro, setMensagemErro] = useState('')
+  const [selectedProfessional, setSelectedProfessional] = useState(null)
 
   const voltar = () => navigate(-1)
   const avaliacoes = () => navigate('/Av_notas')
@@ -39,6 +40,8 @@ function Avaliacao() {
       id_user: user?.id,
       id_profissional: profissional.id,
     }
+
+    console.log('Enviando avaliação:', dados);
 
     if (!dados.id_user) {
       setMensagemErro('ID do usuário não encontrado. Faça login novamente.')
@@ -82,6 +85,38 @@ function Avaliacao() {
     return '/star-vazia.png'
   }
 
+  useEffect(() => {
+    const professional = localStorage.getItem('selectedProfessional');
+    if (professional) {
+      try {
+        setSelectedProfessional(JSON.parse(professional));
+      } catch {
+        setSelectedProfessional('');
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (selectedProfessional) {
+      localStorage.setItem('profissionalParaAvaliar', JSON.stringify({
+        id: selectedProfessional.id,
+        nome: selectedProfessional.nome
+      }));
+    }
+  }, [selectedProfessional]);
+
+  function avaliar() {
+    if (selectedProfessional) {
+      localStorage.setItem('profissionalParaAvaliar', JSON.stringify({
+        id: selectedProfessional.id,
+        nome: selectedProfessional.nome
+      }));
+      navigate('/avaliacao');
+    } else {
+      alert('Selecione um profissional primeiro!');
+    }
+  }
+
   return (
     <div className="container-Ava">
       <Navbar />
@@ -114,7 +149,7 @@ function Avaliacao() {
             <h1>Avaliar Profisional</h1>
           </div>
           <div className="profissional-selecionado-avaliacao">
-            <strong>Profissional selecionado:</strong> {profissional?.nome || profissional?.username || profissional}
+            <strong>Profissional selecionado:</strong> {profissional?.nome || 'Nenhum selecionado'}
           </div>
 
           <div className="Ava-estrela">

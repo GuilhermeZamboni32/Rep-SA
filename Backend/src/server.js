@@ -404,33 +404,37 @@ app.delete('/dietas/:id', async (req, res) => {
       res.status(500).send('Erro ao deletar dieta');
   }
 });
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                      ROTAS DE comentarios                                         //
+//                                      ROTAS DE avaliaçao                                          //
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Rota para adicionar uma avaliação
 app.post(`/avaliacoes/:id_user`, async (req, res) => {
-  const { nota, comentario, id_user } = req.body;
-
+ const { nota, comentario, id_user, id_profissional } = req.body; 
   if (!comentario) {
     return res.status(400).json({ error: 'Comentário é obrigatório.' });
   }
   try {
-    const result = await pool.query(
-      'INSERT INTO avaliacoes (id_user, nota, comentario) VALUES ($1, $2, $3) RETURNING *',
-      [id_user, nota || null, comentario]
-    );
+    await pool.query(
+  'INSERT INTO avaliacoes (id_user, id_profissional, nota, comentario) VALUES ($1, $2, $3, $4) RETURNING *',
+  [id_user, id_profissional, nota || null, comentario]
+);
     res.status(201).json({ message: 'Avaliação registrada com sucesso!', avaliacao: result.rows[0] });
   } catch (err) {
     console.error('Erro ao registrar avaliação:', err.message);
     res.status(500).json({ error: 'Erro ao registrar avaliação.' });
   }
 });
- app.get('/avaliacoes', async (req, res) => {
+app.get('/avaliacoes/:id_user', async (req, res) => {
   try {
     const result = await pool.query(
-      `SELECT nota, comentario FROM avaliacoes WHERE nota IS NOT NULL AND comentario IS NOT NULL ORDER BY id_avaliacao DESC`
+      `SELECT DISTINCT ON (a.id_profissional) 
+          a.nota, a.comentario, u.username AS nome_profissional
+       FROM avaliacoes a
+       JOIN users u ON a.id_profissional = u.id_user
+       WHERE a.id_user = $1
+       ORDER BY a.id_profissional, a.id_avaliacao DESC`,
+      [req.params.id_user]
     );
     res.json(result.rows);
   } catch (err) {
@@ -438,32 +442,6 @@ app.post(`/avaliacoes/:id_user`, async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar avaliações.' });
   }
 });
- 
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                      ROTAS DE avaliaçao                                          //
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Rota para adicionar uma avaliação
-app.post(`/avaliacoes/:id_user`, async (req, res) => {
-  const { nota, comentario, id_user } = req.body;
-
-  if (!comentario) {
-    return res.status(400).json({ error: 'Comentário é obrigatório.' });
-  }
-  try {
-    const result = await pool.query(
-      'INSERT INTO avaliacoes (id_user, nota, comentario) VALUES ($1, $2, $3) RETURNING *',
-      [id_user, nota || null, comentario]
-    );
-    res.status(201).json({ message: 'Avaliação registrada com sucesso!', avaliacao: result.rows[0] });
-  } catch (err) {
-    console.error('Erro ao registrar avaliação:', err.message);
-    res.status(500).json({ error: 'Erro ao registrar avaliação.' });
-  }
-});
-
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                     UPLOAD DE IMAGENS                                          //
 /////////////////////////////////////////////////////////////////////////////////////////////////////
