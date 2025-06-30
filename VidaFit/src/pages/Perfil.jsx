@@ -47,10 +47,15 @@ const formatDate = (date) => {
     navigate('/editperfil');
   }
 
-  function avaliar(){
+  function avaliar() {
+  if (selectedProfessional) {
+    // Se selectedProfessional for só o nome:
+    localStorage.setItem('profissionalParaAvaliar', JSON.stringify({ nome: selectedProfessional }));
     navigate('/avaliacao');
+  } else {
+    alert('Selecione um profissional primeiro!');
   }
-
+}
   return (
    
     <div className="container-perfil">
@@ -128,10 +133,10 @@ const formatDate = (date) => {
             <div className='botoes-perfil'>
 
               <button className='button-perfil' onClick={edit}>Editar</button>
-              <button className='button-perfil' onClick={avaliar}>Avaliar Usuario</button>
+              <button className='button-perfil' onClick={avaliar}>Avaliar Profisional</button>
               <button className='button-perfil' onClick={logout}>Sair</button>
             </div>
-
+                                                                                                                                                      
           </div>
 
         
@@ -146,12 +151,14 @@ const formatDate = (date) => {
               
             </div>
 
-            <div className="exercicios">
-              <button className='button-exer-perfil-0' onClick={() => exercicio('peito')}>treino de peito</button>
-              <button className='button-exer-perfil-0' onClick={() => exercicio('costas')}>treino de costas</button>
-              <button className='button-exer-perfil-0' onClick={() => exercicio('perna')}>treino de pernas</button>
-              {/*<button onClick={exercicio}>Treino D</button>*/}
-            </div>
+          <div className="exercicios">
+            <button className='button-exer-perfil-0 azul-escuro' onClick={() => exercicio('todos')}>Todos os Treinos</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('peito')}>Treino de Peito</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('costas')}>Treino de Costas</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('perna')}>Treino de Pernas</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('ombro')}>Treino de Ombro</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('abdomen')}>Treino de Abdômen</button>
+          </div>
           </div>
 
          
