@@ -146,12 +146,14 @@ const formatDate = (date) => {
               
             </div>
 
-            <div className="exercicios">
-              <button className='button-exer-perfil-0' onClick={() => exercicio('peito')}>treino de peito</button>
-              <button className='button-exer-perfil-0' onClick={() => exercicio('costas')}>treino de costas</button>
-              <button className='button-exer-perfil-0' onClick={() => exercicio('perna')}>treino de pernas</button>
-              {/*<button onClick={exercicio}>Treino D</button>*/}
-            </div>
+          <div className="exercicios">
+            <button className='button-exer-perfil-0 azul-escuro' onClick={() => exercicio('todos')}>Todos os Treinos</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('peito')}>Treino de Peito</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('costas')}>Treino de Costas</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('perna')}>Treino de Pernas</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('ombro')}>Treino de Ombro</button>
+            <button className='button-exer-perfil-0 azul-claro' onClick={() => exercicio('abdomen')}>Treino de Abdômen</button>
+          </div>
           </div>
 
          

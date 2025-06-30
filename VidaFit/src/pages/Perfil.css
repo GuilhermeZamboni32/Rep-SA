@@ -237,10 +237,29 @@
   padding: 10px 20px;
   border-radius: 10px;
   border: none;
-  background-color: var(--AzulCC2);
+  background-color: var(--AzulC2);
   color: var(--BrancoCC2);
   cursor: pointer;
 }
+
+.azul-escuro {
+  background-color: var(--AzulC2);
+  color: var(--BrancoCC2);
+}
+
+.azul-escuro:hover {
+  background-color: var(--AzulCC1);
+}
+
+.azul-claro {
+  background-color: var(--AzulCC1);
+  color: var(--BrancoCC2);
+}
+
+.azul-claro:hover {
+  background-color: var(--AzulC2);
+}
+
 
 .button-dieta-perfil-1{
   padding: 10px 20px;

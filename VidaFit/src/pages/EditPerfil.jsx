@@ -152,10 +152,10 @@ function EditPerfil() {
 
         <div className="div-grupo-usuario-1">
           <div className='div-img'>
-            <img className='img' src={user?.image || './Icons/perfil-branco.png'} alt="Profile" />
+            <img className='img' src={user?.image || './perfil-branco.png'} alt="Profile" />
           </div>
 
-          <div className="perfil-input">
+          <div className="perfil-edit-input">
             <p>Nome novo</p>
             <input className='texto-inp-edit' type="text" placeholder={user?.username} onChange={(e) => setForm({ ...form, username: e.target.value })} />
 
@@ -183,8 +183,23 @@ function EditPerfil() {
               <input className='texto-inp-inf' type="text" placeholder='primeiro nome' onChange={(e) => setForm({ ...form, first_name: e.target.value })} />
               <input className='texto-inp-inf' type="text" placeholder='sobrenome' onChange={(e) => setForm({ ...form, last_name: e.target.value })} />
               <input className='texto-inp-inf' type={showPassword ? 'text' : 'password'} placeholder="Senha Atual:" onChange={(e) => setForm({ ...form, password_user: e.target.value })} />
-              <input className='texto-inp-inf' type={showPassword ? 'text' : 'password'} placeholder="Nova Senha:" />
-              <input type="checkbox" checked={showPassword} onChange={(e) => setShowPassword(e.target.checked)} />
+            
+               <div className="senha-container">
+                  <input
+                    className='texto-inp-inf'
+                    type={showPassword ? 'text' : 'password'}
+                    placeholder="Nova Senha:"
+                  />
+                  <div className="mostra-senha-wrapper">
+                    <input
+                      type="checkbox"
+                      id="showPassword"
+                      checked={showPassword}
+                      onChange={(e) => setShowPassword(e.target.checked)}
+                    />
+                    <label htmlFor="showPassword" className="mostra-senha">Mostrar senha</label>
+                  </div>
+                </div>
             </div>
 
             <div className='div-inputs2'>
@@ -216,7 +231,7 @@ function EditPerfil() {
 
           <div className='container-buttom'>
             <h2>Deseja ser um profissional?</h2>
-            <button className="butoon-click-1" onClick={() => setPopupVisible(true)}>Open Popup</button>
+            <button className="butoon-click-1" onClick={() => setPopupVisible(true)}>Virar Profissional</button>
             {isPopupVisible && (
               <div className="popup" onClick={() => setPopupVisible(false)}>
                 <div className="popup-content" onClick={(e) => e.stopPropagation()}>
@@ -229,8 +244,10 @@ function EditPerfil() {
                     <option value="ambos">Ambos</option>
                   </select>
                   <input type="text" placeholder="Validador" value={professionalForm.validator} onChange={(e) => setProfessionalForm({ ...professionalForm, validator: e.target.value })} />
+                  <div className='botao-popup'>
                   <button onClick={submitProfessionalRequest}>Confirmar</button>
                   <button onClick={() => setPopupVisible(false)}>Fechar</button>
+                  </div>
                 </div>
               </div>
             )}

@@ -76,7 +76,7 @@ function Login() {
 
   return (
    <div className='container-login'>
-  {/* <Navbar /> */}
+  {/* <Navbar /> */} <Navbar />
   <div className='container-login-2'>
     <div className='div-cadas-esquerda-login'>
       <div className='espaco-0-login'></div>

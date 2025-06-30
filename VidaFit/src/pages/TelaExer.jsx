@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import './TelaExer.css';
 import Navbar from '../Components/Navbar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import ExerciciosList from './ExerciciosList';
 
 
 function TelaExer() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const categoria = location.state?.categoria || 'todos';
   const [exercicios, setExercicios] = useState([]);
 
   useEffect(() => {
@@ -27,6 +29,9 @@ function TelaExer() {
     navigate('/perfil');
   }
 
+    const exerciciosFiltrados = categoria === 'todos'
+    ? exercicios
+    : exercicios.filter(e => e.categoria_exer === categoria);
   
   
   return (
@@ -45,7 +50,7 @@ function TelaExer() {
           </div>
         </div>
         <div className='div-baixo'>
-          <ExerciciosList exercicios={exercicios} />
+          <ExerciciosList exercicios={exerciciosFiltrados} />
         </div>
       </div>
     </div>

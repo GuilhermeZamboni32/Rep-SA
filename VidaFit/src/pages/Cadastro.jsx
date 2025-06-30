@@ -80,7 +80,7 @@ function Cadastro() {
 
   return (
     <div className='container-cadastro'>
-      {/* <Navbar /> */}
+      {/* <Navbar /> */} <Navbar />
       <div className='container-cadastro-2'>
         <div className='div-cadas-esquerda'>
           <div className='espaco-0'></div>
