@@ -409,15 +409,24 @@ app.delete('/dietas/:id', async (req, res) => {
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 // Rota para adicionar uma avaliação
 app.post(`/avaliacoes/:id_user`, async (req, res) => {
- const { nota, comentario, id_user,} = req.body; 
+  const { nota, comentario } = req.body;
+  const { id_user } = req.params;
   if (!comentario) {
     return res.status(400).json({ error: 'Comentário é obrigatório.' });
   }
   try {
-    await pool.query(
-  'INSERT INTO avaliacoes (id_user, nota, comentario) VALUES ($1, $2, $3,) RETURNING *',
-  [id_user, nota || null, comentario]
-);
+    const existingEvaluation = await pool.query(
+      'SELECT * FROM avaliacoes WHERE id_user = $1',
+      [id_user]
+   );
+     if (existingEvaluation.rows.length > 0) {
+      return res.status(403).json({ error: 'Você já enviou uma avaliação.' });
+    }
+    const result = await pool.query(
+      'INSERT INTO avaliacoes (id_user, nota, comentario) VALUES ($1, $2, $3) RETURNING *',
+      [id_user, nota || null, comentario]
+    );
+
     res.status(201).json({ message: 'Avaliação registrada com sucesso!', avaliacao: result.rows[0] });
   } catch (err) {
     console.error('Erro ao registrar avaliação:', err.message);
