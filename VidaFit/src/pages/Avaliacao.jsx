@@ -3,6 +3,7 @@ import Navbar from '../Components/Navbar'
 import "./Avaliacao.css"
 import { useNavigate } from 'react-router-dom'
 import { GlobalContext } from "../Context/GlobalContext"
+import axios from 'axios';
 import ModalVerde from '../Components/ModalVerde'
 import ModalVermelho from '../Components/ModalVermelho'
 
@@ -27,21 +28,15 @@ function Avaliacao() {
     return `${String(parsedDate.getDate()).padStart(2, '0')}/${String(parsedDate.getMonth() + 1).padStart(2, '0')}/${parsedDate.getFullYear()}`
   }
 
-  const enviarAvaliacao = async () => {
-    if (!comentario.trim()) {
-      setMensagemErro('Por favor, escreva um comentário antes de enviar.')
-      setMostrarErro(true)
-      return
-    }
-
+ const enviarAvaliacao = async () => {
+  try {
     const dados = {
       nota: nota || null,
       comentario,
       id_user: user?.id,
-      id_profissional: profissional.id,
-    }
+    };
 
-    console.log('Enviando avaliação:', dados);
+    console.log('Enviando avaliação:', dados)
 
     if (!dados.id_user) {
       setMensagemErro('ID do usuário não encontrado. Faça login novamente.')
@@ -49,33 +44,41 @@ function Avaliacao() {
       return
     }
 
-    try {
-      const response = await fetch(`http://localhost:3000/avaliacoes/${dados.id_user}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(dados),
-      })
-
-      if (response.ok) {
-        setMensagemModal('Avaliação enviada com sucesso!')
-        setMostrarModal(true)
-        setComentario('')
-        setNota(0)
-      } else {
-        const errorData = await response.json()
-        setMensagemErro(errorData.error || 'Erro ao enviar avaliação.')
-        setMostrarErro(true)
-      }
-    } catch (error) {
-      console.error('Erro ao enviar avaliação:', error)
-      setMensagemErro('Erro ao conectar com o servidor.')
+    if (!dados.comentario.trim()) {
+      setMensagemErro('Comentário é obrigatório.')
       setMostrarErro(true)
+      return
+    }
+
+    const response = await axios.post(`http://localhost:3000/avaliacoes/${dados.id_user}`, {
+      nota: dados.nota,
+      comentario: dados.comentario,
+    });
+
+    if (response.status === 201) {
+      setMensagemModal('Avaliação enviada com sucesso!')
+      setMostrarModal(true)
+      setTimeout(() => {
+        setMostrarModal(false)
+      }, 3000)
+    }
+  } catch (error) {
+    if (error.response?.status === 403) {
+      mostrarErroModal('Você já enviou uma avaliação.')
+    } else {
+      console.error('Erro ao enviar avaliação:', error)
+      mostrarErroModal('Erro ao enviar avaliação. Tente novamente!')
     }
   }
+};
+  const mostrarErroModal = (mensagem) => {
+    setMensagemErro(mensagem);
+    setMostrarErro(true);
+    setTimeout(() => setMostrarErro(false), 5000);
+  };
 
   const handleStarClick = (index, esquerda) => {
     const novaNota = esquerda ? parseFloat((index + 0.5).toFixed(2)) : index + 1
-    if (novaNota > 5) novaNota = 5
     setNota(index === 0 && novaNota === nota ? 0 : novaNota)
   }
 
@@ -86,7 +89,7 @@ function Avaliacao() {
   }
 
   useEffect(() => {
-    const professional = localStorage.getItem('selectedProfessional');
+    const professional = localStorage.getItem('selectedProfessional')
     if (professional) {
       try {
         setSelectedProfessional(JSON.parse(professional));
@@ -104,19 +107,6 @@ function Avaliacao() {
       }));
     }
   }, [selectedProfessional]);
-
-  function avaliar() {
-    if (selectedProfessional) {
-      localStorage.setItem('profissionalParaAvaliar', JSON.stringify({
-        id: selectedProfessional.id,
-        nome: selectedProfessional.nome
-      }));
-      navigate('/avaliacao');
-    } else {
-      alert('Selecione um profissional primeiro!');
-    }
-  }
-
   return (
     <div className="container-Ava">
       <Navbar />
